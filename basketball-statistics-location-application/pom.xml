@@ -1,0 +1,19 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>fr.basketball.statistics.location</groupId>
+    <artifactId>basketball-statistics-location</artifactId>
+    <version>${revision}</version>
+  </parent>
+  <artifactId>basketball-statistics-location-application</artifactId>
+  <name>basketball-statistics-location-application</name>
+  <description>basketball-statistics-location-application</description>
+  
+  <dependencies>
+  		<dependency>
+			<groupId>fr.basketball.statistics.location</groupId>
+			<artifactId>basketball-statistics-location-domain</artifactId>
+		</dependency>
+  </dependencies>
+  
+</project>

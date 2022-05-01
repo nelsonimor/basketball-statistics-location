@@ -13,6 +13,10 @@
 
 	<modules>
 		<module>basketball-statistics-location-exposition</module>
+		<module>basketball-statistics-location-domain</module>
+		<module>basketball-statistics-location-application</module>
+		<module>basketball-statistics-location-infrastructure</module>
+		<module>basketball-statistics-location-report</module>
 	</modules>
 
 	<properties>
@@ -30,6 +34,8 @@
 		<maven-eclipse-plugin.version>2.10</maven-eclipse-plugin.version>
 		<lombok.version>1.18.16</lombok.version>
 		<pact.version>4.3.5</pact.version>
+		<mapstruct.version>1.3.1.Final</mapstruct.version>
+		<lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
 	</properties>
 
 	<dependencyManagement>
@@ -65,7 +71,63 @@
 					</exclusion>
 				</exclusions>
 			</dependency>
+
+			<dependency>
+				<groupId>org.mapstruct</groupId>
+				<artifactId>mapstruct</artifactId>
+				<version>${mapstruct.version}</version>
+			</dependency>
+
+
+			<!-- Project dependencies -->
+			<dependency>
+				<groupId>fr.basketball.statistics.location</groupId>
+				<artifactId>basketball-statistics-location-domain</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>fr.basketball.statistics.location</groupId>
+				<artifactId>basketball-statistics-location-application</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+					<version>${spring-boot.version}</version>
+					<configuration>
+						<!-- JAR must be then copied using maven-resources-plugin to the parent 
+							Project -->
+						<!-- With Maven 3.3.9, parent project is requested last so the JAR 
+							must be pulled by the parent project (in case of clean the JAR is removed 
+							if it is pushed by the exposition project -->
+						<finalName>${project.parent.artifactId}-${project.parent.version}</finalName>
+					</configuration>
+					<executions>
+						<execution>
+							<id>repackage</id>
+							<goals>
+								<goal>repackage</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+
+
+				<plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven-compiler-plugin.version}</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+	</build>
 
 </project>

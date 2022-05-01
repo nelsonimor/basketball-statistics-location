@@ -1,20 +1,37 @@
 package fr.basketball.statistics.location.exposition.api;
 
-import java.util.Arrays;
-import java.util.List;
-
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.basketball.statistics.location.exposition.dto.RegionDto;
+import fr.basketball.statistics.location.application.region.RegionService;
+import fr.basketball.statistics.location.domain.common.entity.RegionsEntity;
+import fr.basketball.statistics.location.exposition.dto.RegionsDto;
+import fr.basketball.statistics.location.exposition.util.RegionDtoMapper;
+
 
 
 @RestController
+@Validated
 public class RegionController {
+
+	private final RegionService regionService;
+	private final RegionDtoMapper regionDtoMapper;
 	
-	@GetMapping("/region")
-	List<RegionDto> getAll() {
-		return Arrays.asList(RegionDto.builder().id(1).name("Western Europe").build());
+	public RegionController(RegionService regionService,RegionDtoMapper regionDtoMapper) {
+		this.regionService = regionService;
+		this.regionDtoMapper = regionDtoMapper;
 	}
-	
+
+
+	@GetMapping("/region")
+	ResponseEntity<RegionsDto> findAll() {
+	    RegionsEntity regionsEntity = regionService.findAll();
+	    if (regionsEntity != null && regionsEntity.getItems().isEmpty()) {
+	      return ResponseEntity.noContent().build();
+	    }
+	    return ResponseEntity.ok(regionDtoMapper.entityToRegionsDto(regionsEntity));
+	}
+
 }
