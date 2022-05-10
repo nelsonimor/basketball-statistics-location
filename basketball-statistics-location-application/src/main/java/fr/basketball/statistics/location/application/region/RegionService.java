@@ -5,9 +5,6 @@ import fr.basketball.statistics.location.domain.common.entity.RegionsEntity;
 
 public interface RegionService {
 
-
-
   RegionsEntity findAll();
-
 
 }

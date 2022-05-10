@@ -92,6 +92,13 @@
 				<version>${project.version}</version>
 			</dependency>
 
+			<dependency>
+				<groupId>fr.basketball.statistics.location</groupId>
+				<artifactId>basketball-statistics-location-infrastructure</artifactId>
+				<version>${project.version}</version>
+				<scope>runtime</scope>
+			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 
