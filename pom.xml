@@ -36,6 +36,16 @@
 		<pact.version>4.3.5</pact.version>
 		<mapstruct.version>1.3.1.Final</mapstruct.version>
 		<lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
+		<junit.utReportFolder>${project.testresult.directory}/surefire-reports</junit.utReportFolder>
+		<junit.itReportFolder>${project.testresult.directory}/failsafe-reports</junit.itReportFolder>
+		<jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
+		<jacoco.utReportFolder>${project.build.directory}/jacoco/test</jacoco.utReportFolder>
+		<jacoco.utReportFile>${jacoco.utReportFolder}/jacoco.exec</jacoco.utReportFile>
+		<jacoco.itReportFolder>${project.build.directory}/jacoco/integrationTest</jacoco.itReportFolder>
+		<jacoco.itReportFile>${jacoco.itReportFolder}/jacoco.exec</jacoco.itReportFile>
+		<jacoco.reportFolder>target/site</jacoco.reportFolder>
+		<maven-failsafe-plugin.version>3.0.0-M5</maven-failsafe-plugin.version>
+		<maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
 	</properties>
 
 	<dependencyManagement>
@@ -99,12 +109,85 @@
 				<scope>runtime</scope>
 			</dependency>
 
+			<dependency>
+				<groupId>fr.basketball.statistics.location</groupId>
+				<artifactId>basketball-statistics-location-exposition</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.logging.log4j</groupId>
+					<artifactId>log4j-to-slf4j</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
 
 	<build>
 		<pluginManagement>
 			<plugins>
+				<!-- JUnit 5 requires Surefire version 2.22.0 or higher -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>${maven-surefire-plugin.version}</version>
+					<configuration>
+						<!-- Force alphabetical order to have a reproducible build -->
+						<runOrder>alphabetical</runOrder>
+						<reportsDirectory>${junit.utReportFolder}</reportsDirectory>
+						<excludes>
+							<exclude>**/*IntTest*</exclude>
+						</excludes>
+						<systemPropertyVariables>
+							<pact.provider.version>${revision}</pact.provider.version>
+							<pactbroker.host>a01pacbro.cdweb.biz</pactbroker.host>
+						</systemPropertyVariables>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-failsafe-plugin</artifactId>
+					<version>${maven-failsafe-plugin.version}</version>
+					<configuration>
+						<!-- Due to spring-boot repackage, without adding this property test 
+							classes are not found See https://github.com/spring-projects/spring-boot/issues/6254 -->
+						<classesDirectory>${project.build.outputDirectory}</classesDirectory>
+						<!-- Force alphabetical order to have a reproducible build -->
+						<runOrder>alphabetical</runOrder>
+						<reportsDirectory>${junit.itReportFolder}</reportsDirectory>
+						<includes>
+							<include>**/*IntTest*</include>
+						</includes>
+					</configuration>
+					<executions>
+						<execution>
+							<id>integration-test</id>
+							<goals>
+								<goal>integration-test</goal>
+								<goal>verify</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+
+
 				<plugin>
 					<groupId>org.springframework.boot</groupId>
 					<artifactId>spring-boot-maven-plugin</artifactId>
@@ -132,9 +215,126 @@
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>${maven-compiler-plugin.version}</version>
 				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>${maven-resources-plugin.version}</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.jacoco</groupId>
+					<artifactId>jacoco-maven-plugin</artifactId>
+					<version>${jacoco-maven-plugin.version}</version>
+					<configuration>
+						<excludes>
+							<exclude>**/*Config*.*</exclude>
+							<exclude>**/*Properties*.*</exclude>
+						</excludes>
+					</configuration>
+					<executions>
+						<execution>
+							<id>prepare-agent-unit-tests</id>
+							<goals>
+								<goal>prepare-agent</goal>
+							</goals>
+							<configuration>
+								<destFile>${jacoco.utReportFile}</destFile>
+							</configuration>
+						</execution>
+						<execution>
+							<id>report-unit-test</id>
+							<phase>test</phase>
+							<goals>
+								<goal>report</goal>
+							</goals>
+							<configuration>
+								<dataFile>${jacoco.utReportFile}</dataFile>
+								<outputDirectory>${jacoco.utReportFolder}</outputDirectory>
+							</configuration>
+						</execution>
+						<execution>
+							<id>prepare-agent-integration-tests</id>
+							<goals>
+								<goal>prepare-agent-integration</goal>
+							</goals>
+							<configuration>
+								<destFile>${jacoco.itReportFile}</destFile>
+							</configuration>
+						</execution>
+						<execution>
+							<id>report-integration-tests</id>
+							<phase>post-integration-test</phase>
+							<goals>
+								<goal>report-integration</goal>
+							</goals>
+							<configuration>
+								<dataFile>${jacoco.itReportFile}</dataFile>
+								<outputDirectory>${jacoco.itReportFolder}</outputDirectory>
+							</configuration>
+						</execution>
+						<execution>
+							<id>report-aggregate</id>
+							<phase>test</phase>
+							<goals>
+								<goal>report-aggregate</goal>
+							</goals>
+							<configuration>
+								<outputDirectory>${jacoco.reportFolder}</outputDirectory>
+								<dataFileIncludes>
+									<dataFileInclude>**/jacoco.exec</dataFileInclude>
+								</dataFileIncludes>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+
 			</plugins>
+
 		</pluginManagement>
 
+		<plugins>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+
 	</build>
+
+	<profiles>
+		<profile>
+			<id>local</id>
+			<properties>
+				<!-- Default Spring profiles based on Maven profiles -->
+				<spring.profiles.active>local</spring.profiles.active>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>dev</id>
+			<properties>
+				<!-- Default Spring profiles based on Maven profiles -->
+				<spring.profiles.active>dev</spring.profiles.active>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>rec</id>
+			<properties>
+				<!-- Default Spring profiles based on Maven profiles -->
+				<spring.profiles.active>rec</spring.profiles.active>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>prod</id>
+			<properties>
+				<!-- Default Spring profiles based on Maven profiles -->
+				<spring.profiles.active>prod</spring.profiles.active>
+			</properties>
+		</profile>
+
+	</profiles>
 
 </project>
