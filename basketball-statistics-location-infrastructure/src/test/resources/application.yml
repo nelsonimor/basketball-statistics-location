@@ -1,0 +1,11 @@
+spring:
+  h2:
+    console:
+      enabled: true
+  sql:    init:      mode: never
+  jpa:
+    defer-datasource-initialization: true
+    show-sql: true
+    generate-ddl: true
+    hibernate:      ddl-auto: create
+      

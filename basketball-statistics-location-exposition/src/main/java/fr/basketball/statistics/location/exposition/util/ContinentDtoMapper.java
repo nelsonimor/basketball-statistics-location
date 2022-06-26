@@ -15,7 +15,4 @@ public interface ContinentDtoMapper {
 	
 	ContinentsDto entityToContinentsDto(ContinentsEntity salesChannelsEntity);
 	
-
-	
-
 }

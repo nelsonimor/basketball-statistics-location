@@ -1,4 +1,4 @@
-package fr.basketball.statistics.location.infrastructure.repository;
+package fr.basketball.statistics.location.infrastructure.repository.region;
 
 import java.util.List;
 import java.util.stream.Collectors;

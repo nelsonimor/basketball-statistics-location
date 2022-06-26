@@ -10,8 +10,6 @@ import fr.basketball.statistics.location.domain.common.entity.ContinentsEntity;
 import fr.basketball.statistics.location.exposition.dto.ContinentsDto;
 import fr.basketball.statistics.location.exposition.util.ContinentDtoMapper;
 
-
-
 @RestController
 @Validated
 public class ContinentResource {

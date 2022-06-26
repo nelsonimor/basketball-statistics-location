@@ -1,4 +1,4 @@
-package fr.basketball.statistics.location.infrastructure.repository;
+package fr.basketball.statistics.location.infrastructure.repository.continent;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

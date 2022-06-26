@@ -1,9 +1,6 @@
 package fr.basketball.statistics.location.domain.common.entity;
 
-import java.time.Instant;
-
 import javax.validation.constraints.NotNull;
-
 
 import fr.basketball.statistics.location.domain.ddd.DDD;
 import lombok.AllArgsConstructor;

@@ -14,12 +14,12 @@ import fr.basketball.statistics.location.exposition.util.RegionDtoMapper;
 
 @RestController
 @Validated
-public class RegionController {
+public class RegionResource {
 
 	private final RegionService regionService;
 	private final RegionDtoMapper regionDtoMapper;
 	
-	public RegionController(RegionService regionService,RegionDtoMapper regionDtoMapper) {
+	public RegionResource(RegionService regionService,RegionDtoMapper regionDtoMapper) {
 		this.regionService = regionService;
 		this.regionDtoMapper = regionDtoMapper;
 	}
