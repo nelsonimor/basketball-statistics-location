@@ -25,6 +25,7 @@ public class ContinentResource {
 
 	@GetMapping("/continents")
 	ResponseEntity<ContinentsDto> findAll() {
+		
 		ContinentsEntity continentsEntity = continentService.findAll();
 	    if (continentsEntity != null && continentsEntity.getItems().isEmpty()) {
 	        return ResponseEntity.noContent().build();

@@ -46,6 +46,8 @@
 		<jacoco.reportFolder>target/site</jacoco.reportFolder>
 		<maven-failsafe-plugin.version>3.0.0-M5</maven-failsafe-plugin.version>
 		<maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
+		<project.testresult.directory>${project.build.directory}/test-reports</project.testresult.directory>
+		<zalando.version>0.27.0</zalando.version>
 	</properties>
 
 	<dependencyManagement>
@@ -113,6 +115,12 @@
 				<groupId>fr.basketball.statistics.location</groupId>
 				<artifactId>basketball-statistics-location-exposition</artifactId>
 				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.zalando</groupId>
+				<artifactId>problem-spring-web-starter</artifactId>
+				<version>${zalando.version}</version>
 			</dependency>
 
 		</dependencies>

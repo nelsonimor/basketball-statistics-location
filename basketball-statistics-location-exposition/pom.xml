@@ -74,7 +74,10 @@
 			<scope>test</scope>
 		</dependency>
 
-
+		<dependency>
+			<groupId>org.zalando</groupId>
+			<artifactId>problem-spring-web-starter</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>

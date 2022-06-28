@@ -13,6 +13,6 @@ public interface ContinentDtoMapper {
 
 	ContinentDto entityToDto(ContinentEntity continentEntity);
 	
-	ContinentsDto entityToContinentsDto(ContinentsEntity salesChannelsEntity);
+	ContinentsDto entityToContinentsDto(ContinentsEntity continentsEntity);
 	
 }

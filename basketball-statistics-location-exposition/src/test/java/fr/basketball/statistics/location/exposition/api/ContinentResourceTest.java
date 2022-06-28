@@ -5,10 +5,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +18,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import fr.basketball.statistics.location.application.continent.ContinentService;
-import fr.basketball.statistics.location.application.region.RegionService;
 import fr.basketball.statistics.location.domain.common.entity.ContinentEntity;
 import fr.basketball.statistics.location.domain.common.entity.ContinentsEntity;
 import fr.basketball.statistics.location.exposition.dto.ContinentDto;
 import fr.basketball.statistics.location.exposition.dto.ContinentsDto;
 import fr.basketball.statistics.location.exposition.util.ContinentDtoMapper;
-import fr.basketball.statistics.location.exposition.util.RegionDtoMapper;
 
 
 @WebMvcTest
@@ -38,11 +35,6 @@ class ContinentResourceTest {
 	@MockBean
 	private ContinentService continentService;
 
-	@MockBean
-	private RegionService regionService;
-
-	@MockBean
-	private RegionDtoMapper regionDtoMapper;
 
 	@MockBean
 	private ContinentDtoMapper mapperDto;
@@ -80,6 +72,26 @@ class ContinentResourceTest {
 		.andExpect(MockMvcResultMatchers.jsonPath("$.items[1].id").value(CONTINENT_EUROPE_ID))
 		.andExpect(MockMvcResultMatchers.jsonPath("$.items[1].name").value(CONTINENT_EUROPE_NAME))
 		.andExpect(MockMvcResultMatchers.jsonPath("$.items[1].code").value("EU"));
+	}
+	
+	@Test
+	void testFindAllEmpty() throws Exception {
+
+
+		ContinentsEntity continentsEntity = ContinentsEntity.builder()
+				.items(new ArrayList<ContinentEntity>())
+				.build();
+
+		ContinentsDto continentsDto = ContinentsDto.builder()
+				.items( new ArrayList<ContinentDto>())
+				.build();
+		
+		when(continentService.findAll()).thenReturn(continentsEntity);
+		when(mapperDto.entityToContinentsDto(continentsEntity)).thenReturn(continentsDto);
+
+		restMockMvc.perform(get("/continents")
+				.accept(MediaType.APPLICATION_JSON))
+		.andExpect(status().isNoContent());
 	}
 
 	private List<ContinentEntity> createEntityItems() {
