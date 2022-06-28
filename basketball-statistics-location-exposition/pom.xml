@@ -9,6 +9,10 @@
 		<version>${revision}</version>
 	</parent>
 
+	<properties>
+		<h2.scope>test</h2.scope>
+	</properties>
+
 	<artifactId>basketball-statistics-location-exposition</artifactId>
 	<name>basketball-statistics-location-exposition</name>
 	<description>basketball-statistics-location-exposition</description>
@@ -78,6 +82,13 @@
 			<groupId>org.zalando</groupId>
 			<artifactId>problem-spring-web-starter</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>${h2.scope}</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -184,17 +195,6 @@
 
 	<profiles>
 		<profile>
-			<id>local</id>
-			<dependencies>
-				<dependency>
-					<groupId>com.h2database</groupId>
-					<artifactId>h2</artifactId>
-					<scope>runtime</scope>
-				</dependency>
-			</dependencies>
-		</profile>
-
-		<profile>
 			<id>dev</id>
 			<dependencies>
 				<dependency>
@@ -224,7 +224,12 @@
 			</dependencies>
 		</profile>
 
-
+		<profile>
+			<id>local</id>
+			<properties>
+				<h2.scope>runtime</h2.scope>
+			</properties>
+		</profile>
 	</profiles>
 
 

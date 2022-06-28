@@ -14,6 +14,7 @@ class BasketballStatisticsLocationApplicationTest {
 	@Autowired
 	private ContinentResource resource;
 
+	
 	@Test
 	void contextLoads() {
 		assertThat(resource).isNotNull();
