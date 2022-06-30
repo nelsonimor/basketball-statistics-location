@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,9 +57,11 @@ class ContinentResourceTest {
 				.items(createEntityItems())
 				.build();
 
-		ContinentsDto continentsDto = ContinentsDto.builder()
-				.items(createDtoItems())
-				.build();
+		
+		
+		ContinentsDto continentsDto = new ContinentsDto();
+		continentsDto.setItems(createDtoItems());
+
 		when(continentService.findAll()).thenReturn(continentsEntity);
 		when(mapperDto.entityToContinentsDto(continentsEntity)).thenReturn(continentsDto);
 
@@ -71,20 +74,18 @@ class ContinentResourceTest {
 		.andExpect(MockMvcResultMatchers.jsonPath("$.items[0].code").value(CONTINENT_AFRICA_CODE))
 		.andExpect(MockMvcResultMatchers.jsonPath("$.items[1].id").value(CONTINENT_EUROPE_ID))
 		.andExpect(MockMvcResultMatchers.jsonPath("$.items[1].name").value(CONTINENT_EUROPE_NAME))
-		.andExpect(MockMvcResultMatchers.jsonPath("$.items[1].code").value("EU"));
+		.andExpect(MockMvcResultMatchers.jsonPath("$.items[1].code").value(CONTINENT_EUROPE_CODE));
 	}
 	
 	@Test
 	void testFindAllEmpty() throws Exception {
-
-
 		ContinentsEntity continentsEntity = ContinentsEntity.builder()
 				.items(new ArrayList<ContinentEntity>())
 				.build();
 
-		ContinentsDto continentsDto = ContinentsDto.builder()
-				.items( new ArrayList<ContinentDto>())
-				.build();
+		
+		ContinentsDto continentsDto = new ContinentsDto();
+		continentsDto.setItems(new ArrayList<ContinentDto>());
 		
 		when(continentService.findAll()).thenReturn(continentsEntity);
 		when(mapperDto.entityToContinentsDto(continentsEntity)).thenReturn(continentsDto);
@@ -92,6 +93,33 @@ class ContinentResourceTest {
 		restMockMvc.perform(get("/continents")
 				.accept(MediaType.APPLICATION_JSON))
 		.andExpect(status().isNoContent());
+	}
+	
+	@Test
+	void testFindByIdSuccessful() throws Exception {
+		ContinentEntity europeEntity = createContinentEntity(CONTINENT_EUROPE_ID,CONTINENT_EUROPE_NAME,CONTINENT_EUROPE_CODE);
+
+		ContinentDto continentDto = createContinentDto(CONTINENT_EUROPE_ID, CONTINENT_EUROPE_NAME, CONTINENT_EUROPE_CODE);
+		when(continentService.findById(CONTINENT_EUROPE_ID)).thenReturn(Optional.of(europeEntity));
+		when(mapperDto.entityToDto(europeEntity)).thenReturn(continentDto);
+
+		restMockMvc.perform(get("/continents/"+CONTINENT_EUROPE_ID)
+				.accept(MediaType.APPLICATION_JSON))
+		.andExpect(status().isOk())
+		.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+		.andExpect(MockMvcResultMatchers.jsonPath("$.id").value(CONTINENT_EUROPE_ID))
+		.andExpect(MockMvcResultMatchers.jsonPath("$.name").value(CONTINENT_EUROPE_NAME))
+		.andExpect(MockMvcResultMatchers.jsonPath("$.code").value(CONTINENT_EUROPE_CODE));
+	}
+	
+	@Test
+	void testFindByIdNotFound() throws Exception {
+		when(continentService.findById(19)).thenReturn(Optional.empty());
+
+
+		restMockMvc.perform(get("/continents/19")
+				.accept(MediaType.APPLICATION_JSON))
+		.andExpect(status().isNotFound());
 	}
 
 	private List<ContinentEntity> createEntityItems() {
@@ -104,11 +132,11 @@ class ContinentResourceTest {
 	}
 
 	private ContinentDto createContinentDto(Integer id,String name,String code) {
-		return ContinentDto.builder()
-				.id(id)
-				.name(name)
-				.code(code)
-				.build();
+		ContinentDto continentDto = new ContinentDto();
+		continentDto.setId(id);
+		continentDto.setName(name);
+		continentDto.setCode(code);
+		return continentDto;
 	}
 
 	private ContinentEntity createContinentEntity(Integer id,String name,String code) {

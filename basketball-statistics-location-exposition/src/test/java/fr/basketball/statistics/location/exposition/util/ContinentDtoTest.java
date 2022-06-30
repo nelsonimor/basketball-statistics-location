@@ -11,10 +11,10 @@ public class ContinentDtoTest {
 	
 	@Test
 	void testContinentsDto() {
-		ContinentsDto dto1 = ContinentsDto.builder().build();
+		ContinentsDto dto1 = new ContinentsDto();
 		dto1.setItems(null);
 		
-		ContinentsDto dto2 = ContinentsDto.builder().build();
+		ContinentsDto dto2 = new ContinentsDto();
 		dto2.setItems(null);
 		
 		assertThat(dto1.toString()).isEqualTo(dto2.toString());

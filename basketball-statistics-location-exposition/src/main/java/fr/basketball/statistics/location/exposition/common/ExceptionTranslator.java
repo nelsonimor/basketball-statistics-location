@@ -10,6 +10,8 @@ import org.zalando.problem.Problem;
 import org.zalando.problem.Status;
 import org.zalando.problem.spring.web.advice.ProblemHandling;
 
+import fr.basketball.statistics.location.domain.common.exception.EntityNotFoundException;
+
 @ControllerAdvice
 public class ExceptionTranslator implements ProblemHandling {
 
@@ -18,6 +20,11 @@ public class ExceptionTranslator implements ProblemHandling {
   @ExceptionHandler(Exception.class)
   public ResponseEntity<Problem> handleOthers(Exception e) {
     return buildResponse(ErrorMessage.INTERNAL_ERROR_OCCURRED, e, HttpStatus.INTERNAL_SERVER_ERROR);
+  }
+  
+  @ExceptionHandler(EntityNotFoundException.class)
+  public ResponseEntity<Problem> handleEntityNotFoundException(EntityNotFoundException e) {
+    return buildResponse(ErrorMessage.ENTITY_WAS_NOT_FOUND, e, HttpStatus.NOT_FOUND);
   }
 
   private ResponseEntity<Problem> buildResponse(ErrorMessage title, Exception exception,HttpStatus httpStatus) {

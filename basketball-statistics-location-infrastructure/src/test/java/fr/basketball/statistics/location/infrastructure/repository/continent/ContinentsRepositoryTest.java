@@ -6,6 +6,7 @@ import static org.mockito.Mockito.when;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 
@@ -37,7 +38,7 @@ class ContinentsRepositoryTest {
 	@MockBean
 	ContinentEntityMapper continentEntityMapper;
 
-	private Integer CONTINENT_AFRICA_ID = 1;
+	private Integer CONTINENT_AFRICA_ID = 2;
 	private String CONTINENT_AFRICA_NAME = "Africa";
 	private String CONTINENT_AFRICA_CODE = "AF";
 	
@@ -45,10 +46,19 @@ class ContinentsRepositoryTest {
 
 	@BeforeEach
 	void dataSetup(@Autowired EntityManager entityManager) {
+		entityManager.clear();
+		
+		
 		ContinentData africaData = buildContinentData(CONTINENT_AFRICA_ID, CONTINENT_AFRICA_NAME, CONTINENT_AFRICA_CODE);
 		ContinentEntity africaEntity = buildContinentEntity(CONTINENT_AFRICA_ID, CONTINENT_AFRICA_NAME, CONTINENT_AFRICA_CODE);
 		entityManager.merge(africaData);
 		when(continentEntityMapper.dataToEntity(any())).thenReturn(africaEntity);
+	}
+	
+	@Test
+	void testFindById() {
+		Optional<ContinentEntity> result = repository.findById(CONTINENT_AFRICA_ID);
+		assertThat(result).isPresent();
 	}
 
 
@@ -61,6 +71,8 @@ class ContinentsRepositoryTest {
 		ContinentEntity continentEntity = result.getItems().get(0);
 		checkContinentContent(continentEntity);
 	}
+	
+
 
 	void checkContinentContent(ContinentEntity toTest) {
 		assertThat(toTest.getId()).isEqualTo(CONTINENT_AFRICA_ID);

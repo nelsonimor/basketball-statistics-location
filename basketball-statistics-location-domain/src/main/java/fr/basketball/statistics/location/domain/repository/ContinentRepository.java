@@ -1,9 +1,14 @@
 package fr.basketball.statistics.location.domain.repository;
 
+import java.util.Optional;
+
+import fr.basketball.statistics.location.domain.common.entity.ContinentEntity;
 import fr.basketball.statistics.location.domain.common.entity.ContinentsEntity;
 
 public interface ContinentRepository {
 	
 	ContinentsEntity findAll();
+	
+	Optional<ContinentEntity> findById(Integer id);
 
 }

@@ -1,6 +1,6 @@
 package fr.basketball.statistics.location.application.continent;
 
-import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -20,6 +20,11 @@ public class ContinentServiceImpl implements ContinentService {
 	@Override
 	public ContinentsEntity findAll() {
 		return continentRepository.findAll();
+	}
+
+	@Override
+	public Optional<ContinentEntity> findById(Integer id) {
+		return continentRepository.findById(id);
 	}
 
 
