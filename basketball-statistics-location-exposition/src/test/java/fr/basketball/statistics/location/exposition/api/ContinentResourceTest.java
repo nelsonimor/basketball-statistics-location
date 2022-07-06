@@ -121,6 +121,13 @@ class ContinentResourceTest {
 				.accept(MediaType.APPLICATION_JSON))
 		.andExpect(status().isNotFound());
 	}
+	
+	@Test
+	void testFindByIdBadParameter() throws Exception {
+		restMockMvc.perform(get("/continents/toto")
+				.accept(MediaType.APPLICATION_JSON))
+		.andExpect(status().isBadRequest());
+	}
 
 	private List<ContinentEntity> createEntityItems() {
 		return Arrays.asList(createContinentEntity(CONTINENT_AFRICA_ID,CONTINENT_AFRICA_NAME,CONTINENT_AFRICA_CODE), createContinentEntity(CONTINENT_EUROPE_ID,CONTINENT_EUROPE_NAME,CONTINENT_EUROPE_CODE));

@@ -74,6 +74,12 @@ class ContinentResourceIntTest {
 	}
 	
 	@Test
+	void getContinentByIdBadParameter() throws Exception {
+		restMockMvc.perform(get("/continents/{id}","toto")//
+				.accept(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());	
+	}
+	
+	@Test
 	void getContinentByIdFound() throws Exception {
 		when(continentService.findById(Mockito.anyInt())).thenReturn(Optional.of(getAfricaEntity()));
 		restMockMvc.perform(get("/continents/{id}","18").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andExpect(content().json(Files.readString(continentFile.getFile().toPath()),true));
