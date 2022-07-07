@@ -7,10 +7,10 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Repository;
 
-import fr.basketball.statistics.location.domain.common.entity.ContinentEntity;
-import fr.basketball.statistics.location.domain.common.entity.ContinentsEntity;
-import fr.basketball.statistics.location.domain.repository.ContinentRepository;
-import fr.basketball.statistics.location.infrastructure.data.ContinentData;
+import fr.basketball.statistics.location.domain.common.entity.continent.ContinentEntity;
+import fr.basketball.statistics.location.domain.common.entity.continent.ContinentsEntity;
+import fr.basketball.statistics.location.domain.repository.continent.ContinentRepository;
+import fr.basketball.statistics.location.infrastructure.data.continent.ContinentData;
 import fr.basketball.statistics.location.infrastructure.util.ContinentEntityMapper;
 
 @Repository

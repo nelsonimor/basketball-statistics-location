@@ -1,11 +1,9 @@
 package fr.basketball.statistics.location.exposition.util;
 
-import fr.basketball.statistics.location.domain.common.entity.RegionEntity;
-import fr.basketball.statistics.location.domain.common.entity.RegionsEntity;
+import fr.basketball.statistics.location.domain.common.entity.region.RegionEntity;
+import fr.basketball.statistics.location.domain.common.entity.region.RegionsEntity;
 import fr.basketball.statistics.location.exposition.dto.RegionDto;
-import fr.basketball.statistics.location.exposition.dto.RegionDto.RegionDtoBuilder;
 import fr.basketball.statistics.location.exposition.dto.RegionsDto;
-import fr.basketball.statistics.location.exposition.dto.RegionsDto.RegionsDtoBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
@@ -13,8 +11,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-05-10T20:20:46+0200",
-    comments = "version: 1.3.1.Final, compiler: Eclipse JDT (IDE) 1.4.0.v20210708-0430, environment: Java 17 (Eclipse Adoptium)"
+    date = "2022-07-07T15:18:42+0200",
+    comments = "version: 1.3.1.Final, compiler: javac, environment: Java 11.0.15 (Oracle Corporation)"
 )
 @Component
 public class RegionDtoMapperImpl implements RegionDtoMapper {
@@ -25,12 +23,12 @@ public class RegionDtoMapperImpl implements RegionDtoMapper {
             return null;
         }
 
-        RegionDtoBuilder regionDto = RegionDto.builder();
+        RegionDto regionDto = new RegionDto();
 
-        regionDto.id( regionEntity.getId() );
-        regionDto.name( regionEntity.getName() );
+        regionDto.setId( regionEntity.getId() );
+        regionDto.setName( regionEntity.getName() );
 
-        return regionDto.build();
+        return regionDto;
     }
 
     @Override
@@ -39,11 +37,11 @@ public class RegionDtoMapperImpl implements RegionDtoMapper {
             return null;
         }
 
-        RegionsDtoBuilder regionsDto = RegionsDto.builder();
+        RegionsDto regionsDto = new RegionsDto();
 
-        regionsDto.items( regionEntityListToRegionDtoList( regionsEntity.getItems() ) );
+        regionsDto.setItems( regionEntityListToRegionDtoList( regionsEntity.getItems() ) );
 
-        return regionsDto.build();
+        return regionsDto;
     }
 
     protected List<RegionDto> regionEntityListToRegionDtoList(List<RegionEntity> list) {

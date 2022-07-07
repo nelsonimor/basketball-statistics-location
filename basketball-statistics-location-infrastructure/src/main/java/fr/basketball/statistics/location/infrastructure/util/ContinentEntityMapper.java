@@ -2,8 +2,8 @@ package fr.basketball.statistics.location.infrastructure.util;
 
 import org.mapstruct.Mapper;
 
-import fr.basketball.statistics.location.domain.common.entity.ContinentEntity;
-import fr.basketball.statistics.location.infrastructure.data.ContinentData;
+import fr.basketball.statistics.location.domain.common.entity.continent.ContinentEntity;
+import fr.basketball.statistics.location.infrastructure.data.continent.ContinentData;
 
 @Mapper(componentModel = "spring")
 public interface ContinentEntityMapper {

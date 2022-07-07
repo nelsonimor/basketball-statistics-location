@@ -7,8 +7,8 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import fr.basketball.statistics.location.domain.common.entity.ContinentEntity;
-import fr.basketball.statistics.location.domain.common.entity.ContinentsEntity;
+import fr.basketball.statistics.location.domain.common.entity.continent.ContinentEntity;
+import fr.basketball.statistics.location.domain.common.entity.continent.ContinentsEntity;
 import fr.basketball.statistics.location.exposition.dto.ContinentDto;
 import fr.basketball.statistics.location.exposition.dto.ContinentsDto;
 
