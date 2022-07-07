@@ -3,12 +3,10 @@ package fr.basketball.statistics.location.infrastructure.data.continent;
 import java.sql.Timestamp;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import fr.basketball.statistics.location.infrastructure.data.CoreData;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,23 +16,22 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@AllArgsConstructor
 @Table(name = "t_continent")
-public class ContinentData {
+public class ContinentData extends CoreData {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-
 	@NotNull
 	private String code;
 	
 	@NotNull
 	private String name;
 	
-	@NotNull
-	private Timestamp creationDate = new Timestamp(System.currentTimeMillis());
+	@Builder
+	public ContinentData(Integer id,Timestamp creationDate,Timestamp updateDate,String code,String name) {
+		super(id,creationDate,updateDate);
+		this.code = code;
+		this.name = name;
+	}
 
 }
