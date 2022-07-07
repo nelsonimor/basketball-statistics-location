@@ -10,7 +10,7 @@ import fr.basketball.statistics.location.domain.common.entity.continent.Continen
 import fr.basketball.statistics.location.domain.common.entity.continent.ContinentsEntity;
 import fr.basketball.statistics.location.domain.entity.EqualsContractTester;
 
-public class ContinentsEntityTest implements EqualsContractTester {
+class ContinentsEntityTest implements EqualsContractTester {
 
 
 	@Test

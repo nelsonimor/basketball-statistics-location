@@ -11,6 +11,11 @@ import org.zalando.problem.Problem;
 import org.zalando.problem.Status;
 import org.zalando.problem.spring.web.advice.ProblemHandling;
 
+
+import static fr.basketball.statistics.location.exposition.common.ErrorMessage.ENTITY_WAS_NOT_FOUND;
+import static fr.basketball.statistics.location.exposition.common.ErrorMessage.INTERNAL_ERROR_OCCURRED;
+
+
 import fr.basketball.statistics.location.domain.common.exception.EntityNotFoundException;
 
 @ControllerAdvice
@@ -20,12 +25,12 @@ public class ExceptionTranslator implements ProblemHandling {
 
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<Problem> handleOthers(Exception e) {
-		return buildResponse(ErrorMessage.INTERNAL_ERROR_OCCURRED, e, HttpStatus.INTERNAL_SERVER_ERROR);
+		return buildResponse(INTERNAL_ERROR_OCCURRED, e, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	@ExceptionHandler(EntityNotFoundException.class)
 	public ResponseEntity<Problem> handleEntityNotFoundException(EntityNotFoundException e) {
-		return buildResponse(ErrorMessage.ENTITY_WAS_NOT_FOUND, e, HttpStatus.NOT_FOUND);
+		return buildResponse(ENTITY_WAS_NOT_FOUND, e, HttpStatus.NOT_FOUND);
 	}
 
 	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
@@ -37,10 +42,10 @@ public class ExceptionTranslator implements ProblemHandling {
 	}
 
 	private ResponseEntity<Problem> buildResponse(ErrorMessage title, Exception exception,HttpStatus httpStatus) {
-		return buildResponse(title, exception.getMessage(), exception, httpStatus);
+		return buildResponse(title, exception.getMessage(), httpStatus);
 	}
 
-	private ResponseEntity<Problem> buildResponse(ErrorMessage title, String detail,Exception exception, HttpStatus httpStatus) {
+	private ResponseEntity<Problem> buildResponse(ErrorMessage title, String detail,HttpStatus httpStatus) {
 
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.setContentType(MediaType.APPLICATION_PROBLEM_JSON);

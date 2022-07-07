@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import fr.basketball.statistics.location.domain.entity.EqualsContractTester;
 
-public class RegionsEntityTest implements EqualsContractTester {
+class RegionsEntityTest implements EqualsContractTester {
 
 
 	@Test

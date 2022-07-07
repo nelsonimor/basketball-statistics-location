@@ -1,13 +1,15 @@
 package fr.basketball.statistics.location.exposition.util;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import org.junit.jupiter.api.Test;
 
 import fr.basketball.statistics.location.exposition.dto.ContinentDto;
 import fr.basketball.statistics.location.exposition.dto.ContinentsDto;
 
-public class ContinentDtoTest {
+class ContinentDtoTest {
 	
 	@Test
 	void testContinentsDto() {
@@ -17,9 +19,10 @@ public class ContinentDtoTest {
 		ContinentsDto dto2 = new ContinentsDto();
 		dto2.setItems(null);
 		
-		assertThat(dto1.toString()).isEqualTo(dto2.toString());
-		assertThat(dto1.hashCode()).isEqualTo(dto2.hashCode());
-		assertThat(dto1.equals(dto2));
+		assertThat(dto1.toString()).hasSameHashCodeAs(dto2.toString());
+		assertThat(dto1.hashCode()).hasSameHashCodeAs(dto2.hashCode());
+		
+		assertEquals(dto1, dto2);
 	}
 	
 	@Test
@@ -34,7 +37,7 @@ public class ContinentDtoTest {
 		dto2.setName("Africa");
 		dto2.setCode("AF");
 
-		assertThat(dto1.equals(dto2));
+		assertNotEquals(dto1, dto2);
 	}
 
 }

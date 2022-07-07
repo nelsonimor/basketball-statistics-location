@@ -37,7 +37,7 @@ class RegionDtoMapperTest {
 		RegionsEntity entities = RegionsEntity.builder().items(List.of(RegionEntity.builder().id(1).name("Balkan").build())).build();
 		RegionsDto regionsDto = mapper.entityToRegionsDto(entities);
 		assertThat(regionsDto).isNotNull();
-		assertThat(regionsDto.getItems().size()).isEqualTo(1);
+		assertThat(regionsDto.getItems()).hasSize(1);
 	}
 	
 }

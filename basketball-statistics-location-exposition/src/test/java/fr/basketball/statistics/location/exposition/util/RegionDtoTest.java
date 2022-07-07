@@ -1,13 +1,15 @@
 package fr.basketball.statistics.location.exposition.util;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import org.junit.jupiter.api.Test;
 
 import fr.basketball.statistics.location.exposition.dto.RegionDto;
 import fr.basketball.statistics.location.exposition.dto.RegionsDto;
 
-public class RegionDtoTest {
+class RegionDtoTest {
 	
 	@Test
 	void testRegionsDto() {
@@ -17,9 +19,9 @@ public class RegionDtoTest {
 		RegionsDto dto2 = new RegionsDto();
 		dto2.setItems(null);
 		
-		assertThat(dto1.toString()).isEqualTo(dto2.toString());
-		assertThat(dto1.hashCode()).isEqualTo(dto2.hashCode());
-		assertThat(dto1.equals(dto2));
+		assertThat(dto1.toString()).hasSameHashCodeAs(dto2.toString());
+		assertThat(dto1.hashCode()).hasSameHashCodeAs(dto2.hashCode());
+		assertEquals(dto1, dto2);
 	}
 	
 	@Test
@@ -33,7 +35,7 @@ public class RegionDtoTest {
 		dto2.setName("Balcan");
 
 
-		assertThat(dto1.equals(dto2));
+		assertNotEquals(dto1, dto2);
 	}
 
 }

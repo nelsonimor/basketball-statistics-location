@@ -1,5 +1,7 @@
 package fr.basketball.statistics.location.exposition.common;
 
+import static fr.basketball.statistics.location.exposition.common.ErrorMessage.ENTITY_WAS_NOT_FOUND;
+import static fr.basketball.statistics.location.exposition.common.ErrorMessage.INTERNAL_ERROR_OCCURRED;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -9,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.zalando.problem.Problem;
 import org.zalando.problem.Status;
+
+import fr.basketball.statistics.location.domain.common.exception.EntityNotFoundException;
 
 class ExceptionTranslatorTest {
 
@@ -26,8 +30,16 @@ class ExceptionTranslatorTest {
 		String exceptionMessage = "This is en exception";
 		Exception exception = new Exception(exceptionMessage);
 		ResponseEntity<Problem> response = translator.handleOthers(exception);
-		assertResponse(response, HttpStatus.INTERNAL_SERVER_ERROR, ErrorMessage.INTERNAL_ERROR_OCCURRED,
+		assertResponse(response, HttpStatus.INTERNAL_SERVER_ERROR, INTERNAL_ERROR_OCCURRED,
 				exceptionMessage);
+	}
+
+	@Test
+	void testHandleNotFoundException() {
+		String exceptionMessage = "The given identifier is unknown by the system.";
+		EntityNotFoundException exception = new EntityNotFoundException(exceptionMessage);
+		ResponseEntity<Problem> response = translator.handleEntityNotFoundException(exception);
+		assertResponse(response, HttpStatus.NOT_FOUND, ENTITY_WAS_NOT_FOUND, exceptionMessage);
 	}
 
 	@Test

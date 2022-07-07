@@ -38,7 +38,7 @@ class ContinentDtoMapperTest {
 		ContinentsEntity continentsEntity = ContinentsEntity.builder().items(List.of(ContinentEntity.builder().id(1).code("AF").name("Africa").build())).build();
 		ContinentsDto continentsDto = mapper.entityToContinentsDto(continentsEntity);
 		assertThat(continentsDto).isNotNull();
-		assertThat(continentsDto.getItems().size()).isEqualTo(1);
+		assertThat(continentsDto.getItems()).hasSize(1);
 	}
 	
 }
