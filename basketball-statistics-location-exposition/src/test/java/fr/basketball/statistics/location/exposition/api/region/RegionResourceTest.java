@@ -19,12 +19,14 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import fr.basketball.statistics.location.application.continent.ContinentService;
+import fr.basketball.statistics.location.application.country.CountryService;
 import fr.basketball.statistics.location.application.region.RegionService;
 import fr.basketball.statistics.location.domain.common.entity.region.RegionEntity;
 import fr.basketball.statistics.location.domain.common.entity.region.RegionsEntity;
 import fr.basketball.statistics.location.exposition.dto.RegionDto;
 import fr.basketball.statistics.location.exposition.dto.RegionsDto;
 import fr.basketball.statistics.location.exposition.util.ContinentDtoMapper;
+import fr.basketball.statistics.location.exposition.util.CountryDtoMapper;
 import fr.basketball.statistics.location.exposition.util.RegionDtoMapper;
 
 
@@ -40,12 +42,18 @@ class RegionResourceTest {
 
 	@MockBean
 	private RegionService regionService;
+	
+	@MockBean
+	private CountryService countryService;
 
 	@MockBean
 	private ContinentDtoMapper continentMapperDto;
 	
 	@MockBean
 	private RegionDtoMapper regionMapperDto;
+	
+	@MockBean
+	private CountryDtoMapper countryMapperDto;
 	
 	private Integer REGION_BALKAN_ID = 1;
 	private String REGION_BALKAN_NAME = "Balkan";

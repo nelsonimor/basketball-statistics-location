@@ -19,12 +19,14 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import fr.basketball.statistics.location.application.continent.ContinentService;
+import fr.basketball.statistics.location.application.country.CountryService;
 import fr.basketball.statistics.location.application.region.RegionService;
 import fr.basketball.statistics.location.domain.common.entity.continent.ContinentEntity;
 import fr.basketball.statistics.location.domain.common.entity.continent.ContinentsEntity;
 import fr.basketball.statistics.location.exposition.dto.ContinentDto;
 import fr.basketball.statistics.location.exposition.dto.ContinentsDto;
 import fr.basketball.statistics.location.exposition.util.ContinentDtoMapper;
+import fr.basketball.statistics.location.exposition.util.CountryDtoMapper;
 import fr.basketball.statistics.location.exposition.util.RegionDtoMapper;
 
 
@@ -40,12 +42,21 @@ class ContinentResourceTest {
 
 	@MockBean
 	private RegionService regionService;
+	
+	@MockBean
+	private CountryService countryService;
 
 	@MockBean
 	private ContinentDtoMapper continentMapperDto;
 	
 	@MockBean
 	private RegionDtoMapper regionMapperDto;
+	
+	@MockBean
+	private CountryDtoMapper countryMapperDto;
+	
+	
+	
 	
 	private Integer CONTINENT_AFRICA_ID = 1;
 	private String CONTINENT_AFRICA_NAME = "Africa";

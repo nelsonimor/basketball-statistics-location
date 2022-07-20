@@ -37,7 +37,7 @@ public class ContinentResource {
 	}
 
 
-	@GetMapping(value = "continents/{continentId}")
+	@GetMapping(value = "/continents/{continentId}")
 	public ResponseEntity<ContinentDto> findById(@PathVariable Integer continentId) {
 		return continentService.findById(continentId)
 				.map(continentDtoMapper::entityToDto)
