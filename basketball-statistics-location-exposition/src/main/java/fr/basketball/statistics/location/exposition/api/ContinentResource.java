@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.basketball.statistics.location.application.continent.ContinentService;
-import fr.basketball.statistics.location.domain.common.entity.continent.ContinentsEntity;
-import fr.basketball.statistics.location.domain.common.exception.EntityNotFoundException;
 import fr.basketball.statistics.location.exposition.dto.ContinentDto;
 import fr.basketball.statistics.location.exposition.dto.ContinentsDto;
 import fr.basketball.statistics.location.exposition.util.ContinentDtoMapper;
+import fr.bsm.location.domain.common.entity.continent.ContinentsEntity;
+import fr.bsm.location.domain.common.exception.EntityNotFoundException;
 
 @RestController
 @Validated

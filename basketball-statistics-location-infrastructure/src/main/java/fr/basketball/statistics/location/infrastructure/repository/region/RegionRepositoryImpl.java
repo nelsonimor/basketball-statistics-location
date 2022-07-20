@@ -5,10 +5,10 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Repository;
 
-import fr.basketball.statistics.location.domain.common.entity.region.RegionEntity;
-import fr.basketball.statistics.location.domain.common.entity.region.RegionsEntity;
-import fr.basketball.statistics.location.domain.repository.region.RegionRepository;
 import fr.basketball.statistics.location.infrastructure.util.RegionEntityMapper;
+import fr.bsm.location.domain.common.entity.region.RegionEntity;
+import fr.bsm.location.domain.common.entity.region.RegionsEntity;
+import fr.bsm.location.domain.repository.region.RegionRepository;
 
 @Repository
 public class RegionRepositoryImpl implements RegionRepository {

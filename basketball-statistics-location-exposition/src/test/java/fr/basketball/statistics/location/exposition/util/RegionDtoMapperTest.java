@@ -7,10 +7,10 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import fr.basketball.statistics.location.domain.common.entity.region.RegionEntity;
-import fr.basketball.statistics.location.domain.common.entity.region.RegionsEntity;
 import fr.basketball.statistics.location.exposition.dto.RegionDto;
 import fr.basketball.statistics.location.exposition.dto.RegionsDto;
+import fr.bsm.location.domain.common.entity.region.RegionEntity;
+import fr.bsm.location.domain.common.entity.region.RegionsEntity;
 
 class RegionDtoMapperTest {
 

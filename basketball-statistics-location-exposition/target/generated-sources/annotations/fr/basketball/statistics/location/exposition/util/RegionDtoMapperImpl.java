@@ -1,9 +1,9 @@
 package fr.basketball.statistics.location.exposition.util;
 
-import fr.basketball.statistics.location.domain.common.entity.region.RegionEntity;
-import fr.basketball.statistics.location.domain.common.entity.region.RegionsEntity;
 import fr.basketball.statistics.location.exposition.dto.RegionDto;
 import fr.basketball.statistics.location.exposition.dto.RegionsDto;
+import fr.bsm.location.domain.common.entity.region.RegionEntity;
+import fr.bsm.location.domain.common.entity.region.RegionsEntity;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-07-20T11:10:56+0200",
+    date = "2022-07-20T17:22:16+0200",
     comments = "version: 1.3.1.Final, compiler: javac, environment: Java 11.0.15 (Oracle Corporation)"
 )
 @Component

@@ -24,8 +24,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import fr.basketball.statistics.location.application.region.RegionService;
-import fr.basketball.statistics.location.domain.common.entity.region.RegionEntity;
-import fr.basketball.statistics.location.domain.common.entity.region.RegionsEntity;
+import fr.bsm.location.domain.common.entity.region.RegionEntity;
+import fr.bsm.location.domain.common.entity.region.RegionsEntity;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class RegionResourceIntTest {

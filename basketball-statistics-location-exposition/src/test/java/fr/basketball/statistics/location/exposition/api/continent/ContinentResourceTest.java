@@ -21,13 +21,13 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import fr.basketball.statistics.location.application.continent.ContinentService;
 import fr.basketball.statistics.location.application.country.CountryService;
 import fr.basketball.statistics.location.application.region.RegionService;
-import fr.basketball.statistics.location.domain.common.entity.continent.ContinentEntity;
-import fr.basketball.statistics.location.domain.common.entity.continent.ContinentsEntity;
 import fr.basketball.statistics.location.exposition.dto.ContinentDto;
 import fr.basketball.statistics.location.exposition.dto.ContinentsDto;
 import fr.basketball.statistics.location.exposition.util.ContinentDtoMapper;
 import fr.basketball.statistics.location.exposition.util.CountryDtoMapper;
 import fr.basketball.statistics.location.exposition.util.RegionDtoMapper;
+import fr.bsm.location.domain.common.entity.continent.ContinentEntity;
+import fr.bsm.location.domain.common.entity.continent.ContinentsEntity;
 
 
 @WebMvcTest

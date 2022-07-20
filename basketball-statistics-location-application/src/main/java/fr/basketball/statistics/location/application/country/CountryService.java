@@ -2,8 +2,8 @@ package fr.basketball.statistics.location.application.country;
 
 import java.util.Optional;
 
-import fr.basketball.statistics.location.domain.common.entity.country.CountriesEntity;
-import fr.basketball.statistics.location.domain.common.entity.country.CountryEntity;
+import fr.bsm.location.domain.common.entity.country.CountriesEntity;
+import fr.bsm.location.domain.common.entity.country.CountryEntity;
 
 
 public interface CountryService {

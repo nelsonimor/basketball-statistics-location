@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.basketball.statistics.location.application.country.CountryService;
-import fr.basketball.statistics.location.domain.common.entity.country.CountriesEntity;
-import fr.basketball.statistics.location.domain.common.exception.EntityNotFoundException;
 import fr.basketball.statistics.location.exposition.dto.CountriesDto;
 import fr.basketball.statistics.location.exposition.dto.CountryDto;
 import fr.basketball.statistics.location.exposition.dto.CountryRequestDto;
 import fr.basketball.statistics.location.exposition.util.CountryDtoMapper;
+import fr.bsm.location.domain.common.entity.country.CountriesEntity;
+import fr.bsm.location.domain.common.exception.EntityNotFoundException;
 
 @RestController
 @Validated

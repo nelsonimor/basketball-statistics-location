@@ -11,12 +11,10 @@ import org.zalando.problem.Problem;
 import org.zalando.problem.Status;
 import org.zalando.problem.spring.web.advice.ProblemHandling;
 
+import fr.bsm.location.domain.common.exception.EntityNotFoundException;
 
 import static fr.basketball.statistics.location.exposition.common.ErrorMessage.ENTITY_WAS_NOT_FOUND;
 import static fr.basketball.statistics.location.exposition.common.ErrorMessage.INTERNAL_ERROR_OCCURRED;
-
-
-import fr.basketball.statistics.location.domain.common.exception.EntityNotFoundException;
 
 @ControllerAdvice
 public class ExceptionTranslator implements ProblemHandling {

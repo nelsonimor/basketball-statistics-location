@@ -14,9 +14,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import fr.basketball.statistics.location.domain.common.entity.continent.ContinentEntity;
-import fr.basketball.statistics.location.domain.common.entity.continent.ContinentsEntity;
-import fr.basketball.statistics.location.domain.repository.continent.ContinentRepository;
+import fr.bsm.location.domain.common.entity.continent.ContinentEntity;
+import fr.bsm.location.domain.common.entity.continent.ContinentsEntity;
+import fr.bsm.location.domain.repository.continent.ContinentRepository;
 
 @ExtendWith(MockitoExtension.class)
 class ContinentServiceTest {

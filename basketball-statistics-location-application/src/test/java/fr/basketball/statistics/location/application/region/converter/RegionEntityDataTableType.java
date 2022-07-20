@@ -4,7 +4,7 @@ import java.util.Map;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import fr.basketball.statistics.location.domain.common.entity.region.RegionEntity;
+import fr.bsm.location.domain.common.entity.region.RegionEntity;
 import io.cucumber.java.DataTableType;
 
 public class RegionEntityDataTableType {

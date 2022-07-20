@@ -24,8 +24,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import fr.basketball.statistics.location.application.continent.ContinentService;
-import fr.basketball.statistics.location.domain.common.entity.continent.ContinentEntity;
-import fr.basketball.statistics.location.domain.common.entity.continent.ContinentsEntity;
+import fr.bsm.location.domain.common.entity.continent.ContinentEntity;
+import fr.bsm.location.domain.common.entity.continent.ContinentsEntity;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class ContinentResourceIntTest {

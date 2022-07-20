@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.basketball.statistics.location.application.region.RegionService;
-import fr.basketball.statistics.location.domain.common.entity.region.RegionsEntity;
-import fr.basketball.statistics.location.domain.common.exception.EntityNotFoundException;
 import fr.basketball.statistics.location.exposition.dto.RegionDto;
 import fr.basketball.statistics.location.exposition.dto.RegionsDto;
 import fr.basketball.statistics.location.exposition.util.RegionDtoMapper;
+import fr.bsm.location.domain.common.entity.region.RegionsEntity;
+import fr.bsm.location.domain.common.exception.EntityNotFoundException;
 
 @RestController
 @Validated

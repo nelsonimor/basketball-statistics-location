@@ -2,7 +2,7 @@ package fr.basketball.statistics.location.exposition.dto;
 
 import javax.validation.constraints.NotNull;
 
-import fr.basketball.statistics.location.domain.ddd.DDD;
+import fr.bsm.location.domain.ddd.DDD;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

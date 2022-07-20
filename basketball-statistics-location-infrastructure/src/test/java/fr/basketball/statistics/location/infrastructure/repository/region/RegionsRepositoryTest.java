@@ -19,11 +19,11 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 
-import fr.basketball.statistics.location.domain.common.entity.region.RegionEntity;
-import fr.basketball.statistics.location.domain.common.entity.region.RegionsEntity;
-import fr.basketball.statistics.location.domain.repository.region.RegionRepository;
 import fr.basketball.statistics.location.infrastructure.data.region.RegionData;
 import fr.basketball.statistics.location.infrastructure.util.RegionEntityMapper;
+import fr.bsm.location.domain.common.entity.region.RegionEntity;
+import fr.bsm.location.domain.common.entity.region.RegionsEntity;
+import fr.bsm.location.domain.repository.region.RegionRepository;
 
 @DataJpaTest
 @EntityScan("fr.basketball.statistics.location.infrastructure.data")

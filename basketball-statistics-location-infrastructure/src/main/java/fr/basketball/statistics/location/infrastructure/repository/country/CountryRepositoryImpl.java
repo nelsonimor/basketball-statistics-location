@@ -5,14 +5,14 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Repository;
 
-import fr.basketball.statistics.location.domain.common.entity.country.CountriesEntity;
-import fr.basketball.statistics.location.domain.common.entity.country.CountryEntity;
-import fr.basketball.statistics.location.domain.repository.country.CountryRepository;
 import fr.basketball.statistics.location.infrastructure.data.continent.ContinentData;
 import fr.basketball.statistics.location.infrastructure.data.region.RegionData;
 import fr.basketball.statistics.location.infrastructure.repository.continent.ContinentJpaRepository;
 import fr.basketball.statistics.location.infrastructure.repository.region.RegionJpaRepository;
 import fr.basketball.statistics.location.infrastructure.util.CountryEntityMapper;
+import fr.bsm.location.domain.common.entity.country.CountriesEntity;
+import fr.bsm.location.domain.common.entity.country.CountryEntity;
+import fr.bsm.location.domain.repository.country.CountryRepository;
 
 @Repository
 public class CountryRepositoryImpl implements CountryRepository {

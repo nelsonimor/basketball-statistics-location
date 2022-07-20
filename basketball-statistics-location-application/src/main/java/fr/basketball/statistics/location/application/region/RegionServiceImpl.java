@@ -4,9 +4,9 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import fr.basketball.statistics.location.domain.common.entity.region.RegionEntity;
-import fr.basketball.statistics.location.domain.common.entity.region.RegionsEntity;
-import fr.basketball.statistics.location.domain.repository.region.RegionRepository;
+import fr.bsm.location.domain.common.entity.region.RegionEntity;
+import fr.bsm.location.domain.common.entity.region.RegionsEntity;
+import fr.bsm.location.domain.repository.region.RegionRepository;
 
 @Service
 public class RegionServiceImpl implements RegionService {

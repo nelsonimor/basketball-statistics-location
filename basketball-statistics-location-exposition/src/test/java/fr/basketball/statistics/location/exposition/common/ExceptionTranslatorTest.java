@@ -12,7 +12,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import org.zalando.problem.Problem;
 import org.zalando.problem.Status;
 
-import fr.basketball.statistics.location.domain.common.exception.EntityNotFoundException;
+import fr.bsm.location.domain.common.exception.EntityNotFoundException;
 
 class ExceptionTranslatorTest {
 

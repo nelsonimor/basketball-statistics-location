@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import fr.basketball.statistics.location.domain.common.entity.continent.ContinentEntity;
 import fr.basketball.statistics.location.infrastructure.data.continent.ContinentData;
+import fr.bsm.location.domain.common.entity.continent.ContinentEntity;
 
 @SpringBootTest(classes = ContinentEntityMapperImpl.class)
 class ContinentsEntityMapperTest {
