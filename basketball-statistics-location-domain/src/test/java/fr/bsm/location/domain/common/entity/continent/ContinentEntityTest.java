@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 
-import fr.bsm.location.domain.common.entity.continent.ContinentEntity;
 import fr.bsm.location.domain.entity.EqualsContractTester;
 
 class ContinentEntityTest implements EqualsContractTester {
