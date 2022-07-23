@@ -6,9 +6,8 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-import fr.bsm.location.domain.common.entity.region.RegionEntity;
-import fr.bsm.location.domain.common.entity.region.RegionsEntity;
 import fr.bsm.location.domain.entity.EqualsContractTester;
+import fr.bsm.location.domain.util.DomainDataUtil;
 
 class RegionsEntityTest implements EqualsContractTester {
 
@@ -25,9 +24,7 @@ class RegionsEntityTest implements EqualsContractTester {
 
 	@Test
 	void testIsAdded() {
-		RegionEntity regionEntity1 = new RegionEntity();
-		regionEntity1.setId(1);
-		regionEntity1.setName("Balkan");
+		RegionEntity regionEntity1 = DomainDataUtil.getRegionWesternEurope();
 
 		RegionsEntity regionsEntity = new RegionsEntity();
 		regionsEntity.setItems(Arrays.asList(regionEntity1));

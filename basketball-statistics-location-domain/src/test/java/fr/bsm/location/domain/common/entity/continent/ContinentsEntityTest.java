@@ -6,9 +6,8 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-import fr.bsm.location.domain.common.entity.continent.ContinentEntity;
-import fr.bsm.location.domain.common.entity.continent.ContinentsEntity;
 import fr.bsm.location.domain.entity.EqualsContractTester;
+import fr.bsm.location.domain.util.DomainDataUtil;
 
 class ContinentsEntityTest implements EqualsContractTester {
 
@@ -18,25 +17,16 @@ class ContinentsEntityTest implements EqualsContractTester {
 	public void testEqualsObject() {
 		ContinentsEntity continentsEntity1 = new ContinentsEntity();
 		ContinentsEntity continentsEntity2 = new ContinentsEntity();
-
 		assertThat(continentsEntity1).isEqualTo(continentsEntity2).hasSameHashCodeAs(continentsEntity2);
-
 	}
 
 	@Test
 	void testIsAdded() {
-		ContinentEntity continentEntity1 = new ContinentEntity();
-		continentEntity1.setId(1);
-		continentEntity1.setCode("AF");
-		continentEntity1.setName("Africa");
-
+		ContinentEntity continentEntity1 = DomainDataUtil.getContinentEurope();
 		ContinentsEntity continentsEntity = new ContinentsEntity();
 		continentsEntity.setItems(Arrays.asList(continentEntity1));
-
 		assertThat(continentsEntity.getItems()).isNotNull();
 		assertThat(continentsEntity.getItems().get(0)).isNotNull();
-
-
 	}
 
 }

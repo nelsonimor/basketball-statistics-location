@@ -1,0 +1,17 @@
+{
+    "id": 1,
+    "name": "Afghanistan",
+    "fullname": "Islamic Republic of Afghanistan",
+    "codeiso2": "AF",
+    "codeiso3": "AFG",
+    "number": "004",
+    "continent": {
+        "id": 3,
+        "code": "AS",
+        "name": "Asia"
+    },
+    "region": {
+        "id": 45,
+        "name": "South-Central Asia"
+    }
+}

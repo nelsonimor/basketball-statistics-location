@@ -5,23 +5,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 
 import fr.bsm.location.domain.entity.EqualsContractTester;
+import fr.bsm.location.domain.util.DomainDataUtil;
 
 class ContinentEntityTest implements EqualsContractTester {
 
   @Test
   @Override
   public void testEqualsObject() {
-    ContinentEntity continentEntity1 = new ContinentEntity();
-    continentEntity1.setId(1);
-    continentEntity1.setCode("AF");
-    continentEntity1.setName("Africa");
-
-   
-    ContinentEntity continentEntity2 = new ContinentEntity();
-    continentEntity2.setId(1);
-    continentEntity2.setCode("AF");
-    continentEntity2.setName("Africa");
-    
+    ContinentEntity continentEntity1 = DomainDataUtil.getContinentEurope();
+    ContinentEntity continentEntity2 = DomainDataUtil.getContinentEurope();
     assertThat(continentEntity1).isEqualTo(continentEntity2).hasSameHashCodeAs(continentEntity2);
     
     continentEntity2.setId(2);

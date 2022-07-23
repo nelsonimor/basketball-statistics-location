@@ -4,22 +4,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 
-import fr.bsm.location.domain.common.entity.region.RegionEntity;
 import fr.bsm.location.domain.entity.EqualsContractTester;
+import fr.bsm.location.domain.util.DomainDataUtil;
 
 class RegionEntityTest implements EqualsContractTester {
 
   @Test
   @Override
   public void testEqualsObject() {
-	    RegionEntity regionEntity1 = new RegionEntity();
-	    regionEntity1.setId(1);
-	    regionEntity1.setName("Balkan");
-
-	   
-	    RegionEntity regionEntity2 = new RegionEntity();
-	    regionEntity2.setId(1);
-	    regionEntity2.setName("Balkan");
+	    RegionEntity regionEntity1 = DomainDataUtil.getRegionWesternEurope();
+	    RegionEntity regionEntity2 = DomainDataUtil.getRegionWesternEurope();
 	    
 	    assertThat(regionEntity1).isEqualTo(regionEntity2).hasSameHashCodeAs(regionEntity2);
 	    
