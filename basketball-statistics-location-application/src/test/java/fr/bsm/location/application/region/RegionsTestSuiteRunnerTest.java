@@ -13,7 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
         "html:target/cucumber"
     },
     glue = {
-        "fr.basketball.statistics.location.application.region",
+        "fr.bsm.location.application.region",
         "cucumber.api.spring",
         "cucumber.runtime.java.spring"
     }

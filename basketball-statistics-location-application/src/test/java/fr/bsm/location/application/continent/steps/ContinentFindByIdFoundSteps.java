@@ -1,15 +1,15 @@
 package fr.bsm.location.application.continent.steps;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
 import java.util.Optional;
-import static org.assertj.core.api.Assertions.assertThat;
 
+import fr.bsm.application.util.ContextHolder;
 import fr.bsm.location.application.continent.ContinentService;
 import fr.bsm.location.application.continent.ContinentServiceImpl;
-import fr.bsm.location.application.continent.context.ContinentContextHolder;
 import fr.bsm.location.domain.common.entity.continent.ContinentEntity;
 import fr.bsm.location.domain.repository.continent.ContinentRepository;
 import io.cucumber.java.en.Given;
@@ -22,12 +22,12 @@ public class ContinentFindByIdFoundSteps {
 
 	private ContinentService continentService;
 
-	private ContinentContextHolder<List<ContinentEntity>, Optional<ContinentEntity>> holder;
+	private ContextHolder<List<ContinentEntity>, Optional<ContinentEntity>> holder;
 
 	public ContinentFindByIdFoundSteps() {
 		continentRepository = mock(ContinentRepository.class);
 		continentService = new ContinentServiceImpl(continentRepository);
-		holder = new ContinentContextHolder<>();
+		holder = new ContextHolder<>();
 	}
 
 	@Given("A collection of continents with different id")

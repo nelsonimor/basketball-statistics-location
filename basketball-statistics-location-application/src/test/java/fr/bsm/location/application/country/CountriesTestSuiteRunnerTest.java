@@ -1,4 +1,4 @@
-package fr.bsm.location.application.continent;
+package fr.bsm.location.application.country;
 
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
@@ -13,13 +13,13 @@ import org.springframework.test.context.ContextConfiguration;
         "html:target/cucumber"
     },
     glue = {
-        "fr.bsm.location.application.continent",
+        "fr.bsm.location.application.country",
         "cucumber.api.spring",
         "cucumber.runtime.java.spring"
     }
 )
 @CucumberContextConfiguration
 @ContextConfiguration
-public class ContinentsTestSuiteRunnerTest {
+public class CountriesTestSuiteRunnerTest {
 
 }

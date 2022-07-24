@@ -1,9 +1,9 @@
-package fr.bsm.location.application.region.context;
+package fr.bsm.application.util;
 
 import lombok.Getter;
 
 @Getter
-public class RegionContextHolder<P, T> {
+public class ContextHolder<P, T> {
 
 	private P param;
 

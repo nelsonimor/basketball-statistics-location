@@ -7,9 +7,9 @@ import static org.mockito.Mockito.when;
 import java.util.List;
 import java.util.Optional;
 
+import fr.bsm.application.util.ContextHolder;
 import fr.bsm.location.application.continent.ContinentService;
 import fr.bsm.location.application.continent.ContinentServiceImpl;
-import fr.bsm.location.application.continent.context.ContinentContextHolder;
 import fr.bsm.location.domain.common.entity.continent.ContinentEntity;
 import fr.bsm.location.domain.common.entity.continent.ContinentsEntity;
 import fr.bsm.location.domain.repository.continent.ContinentRepository;
@@ -23,12 +23,12 @@ public class ContinentFindAllSteps {
 
 	private ContinentService continentService;
 
-	private ContinentContextHolder<List<ContinentEntity>, Optional<ContinentsEntity>> holder;
+	private ContextHolder<List<ContinentEntity>, Optional<ContinentsEntity>> holder;
 
 	public ContinentFindAllSteps() {
 		continentRepository = mock(ContinentRepository.class);
 		continentService = new ContinentServiceImpl(continentRepository);
-		holder = new ContinentContextHolder<>();
+		holder = new ContextHolder<>();
 	}
 
 

@@ -7,9 +7,9 @@ import static org.mockito.Mockito.when;
 import java.util.List;
 import java.util.Optional;
 
+import fr.bsm.application.util.ContextHolder;
 import fr.bsm.location.application.region.RegionService;
 import fr.bsm.location.application.region.RegionServiceImpl;
-import fr.bsm.location.application.region.context.RegionContextHolder;
 import fr.bsm.location.domain.common.entity.region.RegionEntity;
 import fr.bsm.location.domain.repository.region.RegionRepository;
 import io.cucumber.java.en.Given;
@@ -22,12 +22,12 @@ public class RegionFindByIdFoundSteps {
 
 	private RegionService regionService;
 
-	private RegionContextHolder<List<RegionEntity>, Optional<RegionEntity>> holder;
+	private ContextHolder<List<RegionEntity>, Optional<RegionEntity>> holder;
 
 	public RegionFindByIdFoundSteps() {
 		regionRepository = mock(RegionRepository.class);
 		regionService = new RegionServiceImpl(regionRepository);
-		holder = new RegionContextHolder<>();
+		holder = new ContextHolder<>();
 	}
 
 	

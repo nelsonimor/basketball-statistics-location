@@ -2,14 +2,10 @@ package fr.bsm.location.exposition.api;
 
 import java.util.Optional;
 
-import javax.validation.Valid;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.bsm.location.application.country.CountryService;
@@ -38,7 +34,7 @@ public class CountryResource {
 				Optional.ofNullable(countryRequestDto.getContinentId()),
 				Optional.ofNullable(countryRequestDto.getRegionId())
 				);
-		if (countriesEntity != null && countriesEntity.getItems().isEmpty()) {
+		if (countriesEntity == null || countriesEntity.getItems()==null || countriesEntity.getItems().isEmpty()) {
 			return ResponseEntity.noContent().build();
 		}
 		return ResponseEntity.ok(countryDtoMapper.entityToCountriesDto(countriesEntity));
