@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,19 +72,32 @@ class CityResourceTest {
 
 	@Test
 	void testFindAllSuccessful() throws Exception {
-
 		CitiesEntity citiesEntity = CitiesEntity.builder()
 				.items(Arrays.asList(ExpositionDataUtil.getEntityCityBrussels()))
 				.build();
 
-		
 		CitiesDto citiesDto = new CitiesDto();
 		citiesDto.setItems(Arrays.asList(ExpositionDataUtil.getDtoCityBrussels()));
 		
-		when(cityService.findAll()).thenReturn(citiesEntity);
+		when(cityService.findAll(Optional.empty())).thenReturn(citiesEntity);
 		when(cityMapperDto.entityToCitiesDto(citiesEntity)).thenReturn(citiesDto);
 
 		performSuccessFindAll("/cities");
+	}
+	
+	@Test
+	void testFindAllByCountry() throws Exception {
+		CitiesEntity citiesEntity = CitiesEntity.builder()
+				.items(Arrays.asList(ExpositionDataUtil.getEntityCityBrussels()))
+				.build();
+
+		CitiesDto citiesDto = new CitiesDto();
+		citiesDto.setItems(Arrays.asList(ExpositionDataUtil.getDtoCityBrussels()));
+		
+		when(cityService.findAll(Optional.of(ExpositionDataUtil.COUNTRY_BELGIUM_ID))).thenReturn(citiesEntity);
+		when(cityMapperDto.entityToCitiesDto(citiesEntity)).thenReturn(citiesDto);
+
+		performSuccessFindAll("/cities?countryId="+ExpositionDataUtil.COUNTRY_BELGIUM_ID);
 	}
 	
 	@Test
@@ -96,7 +110,7 @@ class CityResourceTest {
 		CitiesDto citiesDto = new CitiesDto();
 		citiesDto.setItems(new ArrayList<CityDto>());
 		
-		when(cityService.findAll()).thenReturn(citiesEntity);
+		when(cityService.findAll(Optional.empty())).thenReturn(citiesEntity);
 		when(cityMapperDto.entityToCitiesDto(citiesEntity)).thenReturn(citiesDto);
 
 		restMockMvc.perform(get("/cities")

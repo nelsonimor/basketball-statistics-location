@@ -1,5 +1,7 @@
 package fr.bsm.location.application.city;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 import fr.bsm.location.domain.common.entity.city.CitiesEntity;
@@ -15,8 +17,8 @@ public class CityServiceImpl implements CityService {
 	}
 
 	@Override
-	public CitiesEntity findAll() {
-		return cityRepository.findAll();
+	public CitiesEntity findAll(Optional<Integer> countryId) {
+		return cityRepository.findAll(countryId);
 	}
 
 }

@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -45,18 +46,26 @@ class CityResourceIntTest {
 	}
 
 	@Test
-	void getContinentsSuccess() throws Exception {
+	void getAllCitiesSuccess() throws Exception {
 		CitiesEntity citiesEntity = new CitiesEntity();
 		citiesEntity.setItems(Arrays.asList(ExpositionDataUtil.getEntityCityBrussels()));
-		when(cityService.findAll()).thenReturn(citiesEntity);
+		when(cityService.findAll(Optional.empty())).thenReturn(citiesEntity);
 		restMockMvc.perform(get("/cities").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andExpect(content().json(Files.readString(citiesFile.getFile().toPath()),true));
 	}
 	
 	@Test
-	void getContinentsNoContent() throws Exception {
+	void getCitiesByRegionSuccess() throws Exception {
+		CitiesEntity citiesEntity = new CitiesEntity();
+		citiesEntity.setItems(Arrays.asList(ExpositionDataUtil.getEntityCityBrussels()));
+		when(cityService.findAll(Optional.of(ExpositionDataUtil.COUNTRY_BELGIUM_ID))).thenReturn(citiesEntity);
+		restMockMvc.perform(get("/cities?countryId="+ExpositionDataUtil.COUNTRY_BELGIUM_ID).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andExpect(content().json(Files.readString(citiesFile.getFile().toPath()),true));
+	}
+	
+	@Test
+	void getCitiesNoContent() throws Exception {
 		CitiesEntity citiesEntity = new CitiesEntity();
 		citiesEntity.setItems(new ArrayList<>());
-		when(cityService.findAll()).thenReturn(citiesEntity);
+		when(cityService.findAll(Optional.empty())).thenReturn(citiesEntity);
 		restMockMvc.perform(get("/cities").accept(MediaType.APPLICATION_JSON)).andExpect(status().isNoContent());
 	}
 

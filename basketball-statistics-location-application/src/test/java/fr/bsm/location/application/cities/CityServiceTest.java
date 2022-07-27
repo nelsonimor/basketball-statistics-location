@@ -6,6 +6,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,10 +39,20 @@ class CityServiceTest {
 	void testFindAll() {
 		List<CityEntity> entities = Arrays.asList(ApplicationDataUtil.getCityBrussels());
 		CitiesEntity entityToReturn = CitiesEntity.builder().items(entities).build();
-		when(cityRepository.findAll()).thenReturn(entityToReturn);
-		CitiesEntity result = cityService.findAll();
+		when(cityRepository.findAll(Optional.empty())).thenReturn(entityToReturn);
+		CitiesEntity result = cityService.findAll(Optional.empty());
 		assertThat(result.getItems()).hasSize(1);
-		verify(cityRepository).findAll();
+		verify(cityRepository).findAll(Optional.empty());
+	}
+	
+	@Test
+	void testFindByCountry() {
+		List<CityEntity> entities = Arrays.asList(ApplicationDataUtil.getCityBrussels());
+		CitiesEntity entityToReturn = CitiesEntity.builder().items(entities).build();
+		when(cityRepository.findAll(Optional.of(ApplicationDataUtil.COUNTRY_BELGIUM_ID))).thenReturn(entityToReturn);
+		CitiesEntity result = cityService.findAll(Optional.of(ApplicationDataUtil.COUNTRY_BELGIUM_ID));
+		assertThat(result.getItems()).hasSize(1);
+		verify(cityRepository).findAll(Optional.of(ApplicationDataUtil.COUNTRY_BELGIUM_ID));
 	}
 
 
