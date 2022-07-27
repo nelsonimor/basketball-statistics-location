@@ -30,7 +30,7 @@ public class CityResource {
 	ResponseEntity<CitiesDto> findAll(CityQueryDto cityQueryDto) {
 
 		CitiesEntity citiesEntity = cityService.findAll(Optional.ofNullable(cityQueryDto.getCountryId()));
-		if (citiesEntity != null && citiesEntity.getItems().isEmpty()) {
+		if (citiesEntity == null || citiesEntity.getItems()==null || citiesEntity.getItems().isEmpty()) {
 			return ResponseEntity.noContent().build();
 		}
 		return ResponseEntity.ok(cityDtoMapper.entityToCitiesDto(citiesEntity));
