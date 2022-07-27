@@ -18,6 +18,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import fr.bsm.location.application.city.CityService;
 import fr.bsm.location.application.continent.ContinentService;
 import fr.bsm.location.application.country.CountryService;
 import fr.bsm.location.application.region.RegionService;
@@ -25,6 +26,7 @@ import fr.bsm.location.domain.common.entity.region.RegionEntity;
 import fr.bsm.location.domain.common.entity.region.RegionsEntity;
 import fr.bsm.location.exposition.dto.RegionDto;
 import fr.bsm.location.exposition.dto.RegionsDto;
+import fr.bsm.location.exposition.util.CityDtoMapper;
 import fr.bsm.location.exposition.util.ContinentDtoMapper;
 import fr.bsm.location.exposition.util.CountryDtoMapper;
 import fr.bsm.location.exposition.util.RegionDtoMapper;
@@ -54,6 +56,12 @@ class RegionResourceTest {
 	
 	@MockBean
 	private CountryDtoMapper countryMapperDto;
+	
+	@MockBean
+	private CityService cityService;
+	
+	@MockBean
+	private CityDtoMapper cityMapperDto;
 	
 	private Integer REGION_BALKAN_ID = 1;
 	private String REGION_BALKAN_NAME = "Balkan";

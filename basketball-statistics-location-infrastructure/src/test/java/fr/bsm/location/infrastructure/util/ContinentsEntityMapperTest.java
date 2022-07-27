@@ -15,20 +15,16 @@ class ContinentsEntityMapperTest {
 	@Autowired
 	ContinentEntityMapper mapper;
 	
-	private final Integer CONTINENT_ID = 1;
-	private final String CONTINENT_NAME = "Africa";
-	private final String CONTINENT_CODE = "AF";
-
 	@Test
 	void testMapToLabelEntity() {
-		ContinentData data = ContinentData.builder().id(CONTINENT_ID).name(CONTINENT_NAME).code(CONTINENT_CODE).build();
+		ContinentData data = InfrastructureDataUtil.getDataContinentEurope();
 		ContinentEntity entity = mapper.dataToEntity(data);
 		assertContinent(entity, data);
 	}
 
 	@Test
 	void testEntityToDocument() {
-		ContinentEntity entity = ContinentEntity.builder().id(CONTINENT_ID).name(CONTINENT_NAME).code(CONTINENT_CODE).build();
+		ContinentEntity entity = InfrastructureDataUtil.getEntityContinentEurope();
 		ContinentData data = mapper.entityToData(entity);
 		assertContinent(data, entity);
 	}

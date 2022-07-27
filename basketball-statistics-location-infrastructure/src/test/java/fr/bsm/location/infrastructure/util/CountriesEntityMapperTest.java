@@ -6,12 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import fr.bsm.location.domain.common.entity.continent.ContinentEntity;
 import fr.bsm.location.domain.common.entity.country.CountryEntity;
-import fr.bsm.location.domain.common.entity.region.RegionEntity;
-import fr.bsm.location.infrastructure.data.continent.ContinentData;
 import fr.bsm.location.infrastructure.data.country.CountryData;
-import fr.bsm.location.infrastructure.data.region.RegionData;
 
 @SpringBootTest(classes = CountryEntityMapperImpl.class)
 class CountriesEntityMapperTest {
@@ -19,38 +15,17 @@ class CountriesEntityMapperTest {
 	@Autowired
 	CountryEntityMapper mapper;
 	
-	private final Integer COUNTRY_ID = 1;
-	private final String COUNTRY_NAME = "Belgium";
-	private final String COUNTRY_CODE_ISO2 = "BE";
-	private final String COUNTRY_CODE_ISO3 = "BEL";
-	private final String COUNTRY_FULLNAME = "Belgium Kingdom";
-	private final String COUNTRY_NUMBER = "123";
-	
-	private final Integer CONTINENT_ID = 1;
-	private final String CONTINENT_NAME = "Africa";
-	private final String CONTINENT_CODE = "AF";
-	
-	private final Integer REGION_ID = 1;
-	private final String REGION_NAME = "Balkan";
 
 	@Test
 	void testMapToLabelEntity() {
-		
-		ContinentData continentdata = ContinentData.builder().id(CONTINENT_ID).name(CONTINENT_NAME).code(CONTINENT_CODE).build();
-		RegionData regiondata = RegionData.builder().id(REGION_ID).name(REGION_NAME).build();
-		
-		CountryData data = CountryData.builder().id(COUNTRY_ID).name(COUNTRY_NAME).codeiso2(COUNTRY_CODE_ISO2).codeiso3(COUNTRY_CODE_ISO3).fullname(COUNTRY_FULLNAME).number(COUNTRY_NUMBER).continent(continentdata).region(regiondata).build();
+		CountryData data = InfrastructureDataUtil.getDataCountryBelgium();
 		CountryEntity entity = mapper.dataToEntity(data);
 		assertCountry(entity, data);
 	}
 
 	@Test
-	void testEntityToDocument() {
-		
-		ContinentEntity continententity = ContinentEntity.builder().id(CONTINENT_ID).name(CONTINENT_NAME).code(CONTINENT_CODE).build();
-		RegionEntity regionentity = RegionEntity.builder().id(REGION_ID).name(REGION_NAME).build();
-		
-		CountryEntity entity = CountryEntity.builder().id(COUNTRY_ID).name(COUNTRY_NAME).codeiso2(COUNTRY_CODE_ISO2).codeiso3(COUNTRY_CODE_ISO3).fullname(COUNTRY_FULLNAME).number(COUNTRY_NUMBER).continent(continententity).region(regionentity).build();
+	void testEntityToDocument() {	
+		CountryEntity entity = InfrastructureDataUtil.getEntityCountryBelgium();
 		CountryData data = mapper.entityToData(entity);
 		assertCountry(data, entity);
 	}

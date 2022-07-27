@@ -1,4 +1,4 @@
-package fr.bsm.location.application.region.converter;
+package fr.bsm.location.application.region;
 
 import java.util.Map;
 

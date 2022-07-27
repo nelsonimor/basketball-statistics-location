@@ -15,20 +15,16 @@ class RegionsEntityMapperTest {
 	@Autowired
 	RegionEntityMapper mapper;
 	
-	private final Integer REGION_ID = 1;
-	private final String REGION_NAME = "Balkan";
-
-
 	@Test
 	void testMapToLabelEntity() {
-		RegionData data = RegionData.builder().id(REGION_ID).name(REGION_NAME).build();
+		RegionData data = InfrastructureDataUtil.getDataRegionWesternEurope();
 		RegionEntity entity = mapper.dataToEntity(data);
 		assertRegion(entity, data);
 	}
 
 	@Test
 	void testEntityToDocument() {
-		RegionEntity entity = RegionEntity.builder().id(REGION_ID).name(REGION_NAME).build();
+		RegionEntity entity = InfrastructureDataUtil.getEntityRegionWesternEurope();
 		RegionData data = mapper.entityToData(entity);
 		assertRegion(data, entity);
 	}

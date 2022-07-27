@@ -1,5 +1,6 @@
 package fr.bsm.location.domain.util;
 
+import fr.bsm.location.domain.common.entity.city.CityEntity;
 import fr.bsm.location.domain.common.entity.continent.ContinentEntity;
 import fr.bsm.location.domain.common.entity.country.CountryEntity;
 import fr.bsm.location.domain.common.entity.region.RegionEntity;
@@ -19,6 +20,13 @@ public class DomainDataUtil {
 	public static final String COUNTRY_BELGIUM_CODE_ISO3 = "BEL";
 	public static final String COUNTRY_BELGIUM_NUMBER = "123";
 	public static final String COUNTRY_BELGIUM_FULLNAME = "Belgium Kingdom";
+	
+	private static final Integer CITY_BRUSSELS_ID = 40;
+	private static final String CITY_BRUSSELS_NAME = "Brussels";
+	private static final Double CITY_BRUSSELS_LONGITUDE = 2.452367;
+	private static final Double CITY_BRUSSELS_LATITUDE = 40.1245;
+	private static final String CITY_BRUSSELS_STATE = "Région de Bruxelles-Capitale";
+	private static final String CITY_BRUSSELS_COUNTY = "Bruxelles-Capitale";
 
 
 	public static RegionEntity getRegionWesternEurope() {
@@ -47,6 +55,18 @@ public class DomainDataUtil {
 		countryEntity.setRegion(getRegionWesternEurope());
 		countryEntity.setContinent(getContinentEurope());
 		return countryEntity;
+	}
+	
+	public static CityEntity getCityBrussels() {
+		CityEntity cityEntity = new CityEntity();
+		cityEntity.setId(CITY_BRUSSELS_ID);
+		cityEntity.setName(CITY_BRUSSELS_NAME);
+		cityEntity.setCounty(CITY_BRUSSELS_COUNTY);
+		cityEntity.setLatitude(CITY_BRUSSELS_LATITUDE);
+		cityEntity.setLongitude(CITY_BRUSSELS_LONGITUDE);
+		cityEntity.setState(CITY_BRUSSELS_STATE);
+		cityEntity.setCountry(getCountryBelgium());
+		return cityEntity;
 	}
 
 }

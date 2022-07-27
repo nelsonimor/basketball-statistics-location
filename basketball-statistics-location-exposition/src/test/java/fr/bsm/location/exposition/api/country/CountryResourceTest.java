@@ -18,6 +18,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import fr.bsm.location.application.city.CityService;
 import fr.bsm.location.application.continent.ContinentService;
 import fr.bsm.location.application.country.CountryService;
 import fr.bsm.location.application.region.RegionService;
@@ -29,6 +30,7 @@ import fr.bsm.location.exposition.dto.ContinentDto;
 import fr.bsm.location.exposition.dto.CountriesDto;
 import fr.bsm.location.exposition.dto.CountryDto;
 import fr.bsm.location.exposition.dto.RegionDto;
+import fr.bsm.location.exposition.util.CityDtoMapper;
 import fr.bsm.location.exposition.util.ContinentDtoMapper;
 import fr.bsm.location.exposition.util.CountryDtoMapper;
 import fr.bsm.location.exposition.util.RegionDtoMapper;
@@ -58,6 +60,12 @@ class CountryResourceTest {
 	
 	@MockBean
 	private CountryDtoMapper countryMapperDto;
+	
+	@MockBean
+	private CityService cityService;
+	
+	@MockBean
+	private CityDtoMapper cityMapperDto;
 
 	private Integer CONTINENT_EUROPE_ID = 2;
 	private String CONTINENT_EUROPE_NAME = "Europe";

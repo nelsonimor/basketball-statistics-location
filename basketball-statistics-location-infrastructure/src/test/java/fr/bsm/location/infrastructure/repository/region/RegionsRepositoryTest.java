@@ -4,8 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
@@ -23,6 +21,7 @@ import fr.bsm.location.domain.common.entity.region.RegionEntity;
 import fr.bsm.location.domain.common.entity.region.RegionsEntity;
 import fr.bsm.location.domain.repository.region.RegionRepository;
 import fr.bsm.location.infrastructure.data.region.RegionData;
+import fr.bsm.location.infrastructure.util.InfrastructureDataUtil;
 import fr.bsm.location.infrastructure.util.RegionEntityMapper;
 
 @DataJpaTest
@@ -38,25 +37,22 @@ class RegionsRepositoryTest {
 	@MockBean
 	RegionEntityMapper regionEntityMapper;
 
-	private Integer REGION_BALKAN_ID = 2;
-	private String REGION_BALKAN_NAME = "Balkan";
-
-
+	Integer idGenerated = 0; 
 
 	@BeforeEach
 	void dataSetup(@Autowired EntityManager entityManager) {
 		entityManager.clear();
 		
 		
-		RegionData balkanData = buildRegionData(REGION_BALKAN_ID, REGION_BALKAN_NAME);
-		RegionEntity balkanEntity = buildRegionEntity(REGION_BALKAN_ID, REGION_BALKAN_NAME);
-		entityManager.merge(balkanData);
-		when(regionEntityMapper.dataToEntity(any())).thenReturn(balkanEntity);
+		RegionEntity regionEntity = InfrastructureDataUtil.getEntityRegionWesternEurope();
+		RegionData regionData = entityManager.merge(InfrastructureDataUtil.getDataRegionWesternEurope());
+		idGenerated = regionData.getId();
+		when(regionEntityMapper.dataToEntity(any())).thenReturn(regionEntity);
 	}
 	
 	@Test
 	void testFindById() {
-		Optional<RegionEntity> result = repository.findById(REGION_BALKAN_ID);
+		Optional<RegionEntity> result = repository.findById(idGenerated);
 		assertThat(result).isPresent();
 	}
 
@@ -74,24 +70,8 @@ class RegionsRepositoryTest {
 
 
 	void checkRegionContent(RegionEntity toTest) {
-		assertThat(toTest.getId()).isEqualTo(REGION_BALKAN_ID);
-		assertThat(toTest.getName()).isEqualTo(REGION_BALKAN_NAME);
-	}
-
-
-	RegionEntity buildRegionEntity(Integer id,String name) {
-		return RegionEntity.builder()
-				.id(id)
-				.name(name)
-				.build();
-	}
-	
-	RegionData buildRegionData(Integer id,String name) {
-		return RegionData.builder()
-				.id(id)
-				.name(name)
-				.creationDate(Timestamp.from(Instant.now()))
-				.build();
+		assertThat(toTest.getId()).isEqualTo(InfrastructureDataUtil.REGION_WESTERN_EUROPE_ID);
+		assertThat(toTest.getName()).isEqualTo(InfrastructureDataUtil.REGION_WESTERN_EUROPE_NAME);
 	}
 
 }

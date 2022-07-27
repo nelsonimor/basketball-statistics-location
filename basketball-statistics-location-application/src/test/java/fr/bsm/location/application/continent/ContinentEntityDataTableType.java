@@ -1,24 +1,23 @@
-package fr.bsm.location.application.country.converter;
+package fr.bsm.location.application.continent;
 
 import java.util.Map;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import fr.bsm.location.domain.common.entity.continent.ContinentEntity;
-import fr.bsm.location.domain.common.entity.country.CountryEntity;
 import io.cucumber.java.DataTableType;
 
-public class CountryEntityDataTableType {
+public class ContinentEntityDataTableType {
 
   private final ObjectMapper objectMapper;
 
-  public CountryEntityDataTableType() {
+  public ContinentEntityDataTableType() {
     objectMapper = new ObjectMapper();
     objectMapper.findAndRegisterModules();
   }
 
   @DataTableType
-  public CountryEntity define(Map<String, String> entry) {
-    return objectMapper.convertValue(entry, CountryEntity.class);
+  public ContinentEntity define(Map<String, String> entry) {
+    return objectMapper.convertValue(entry, ContinentEntity.class);
   }
 }
