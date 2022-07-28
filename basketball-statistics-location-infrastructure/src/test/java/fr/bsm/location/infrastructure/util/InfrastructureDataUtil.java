@@ -32,6 +32,14 @@ public class InfrastructureDataUtil {
 	public static final String CITY_BRUSSELS_STATE = "Région de Bruxelles-Capitale";
 	public static final String CITY_BRUSSELS_COUNTY = "Bruxelles-Capitale";
 	
+	public static final Integer CITY_GAND_ID = 50;
+	public static final String CITY_GAND_NAME = "Gand";
+	public static final Double CITY_GAND_LONGITUDE = 3.7250121;
+	public static final Double CITY_GAND_LATITUDE = 51.0538286;
+	public static final String CITY_GAND_STATE = "East Flanders";
+	public static final String CITY_GAND_COUNTY = "Gent";
+	
+	
 	public static RegionEntity getEntityRegionWesternEurope() {
 		RegionEntity regionEntity = new RegionEntity();
 		regionEntity.setId(REGION_WESTERN_EUROPE_ID);
@@ -99,6 +107,37 @@ public class InfrastructureDataUtil {
 		cityEntity.setState(CITY_BRUSSELS_STATE);
 		cityEntity.setCountry(getEntityCountryBelgium());
 		return cityEntity;
+	}
+	
+	public static CityEntity getEntityCityGand() {
+		CityEntity cityEntity = new CityEntity();
+		cityEntity.setId(CITY_GAND_ID);
+		cityEntity.setName(CITY_GAND_NAME);
+		cityEntity.setCounty(CITY_GAND_COUNTY);
+		cityEntity.setLatitude(CITY_GAND_LATITUDE);
+		cityEntity.setLongitude(CITY_GAND_LONGITUDE);
+		cityEntity.setState(CITY_GAND_STATE);
+		cityEntity.setCountry(getEntityCountryBelgium());
+		return cityEntity;
+	}
+	
+	public static CityEntity getEntityCityGandWithoutGeocoding() {
+		CityEntity cityEntity = new CityEntity();
+		cityEntity.setName(CITY_GAND_NAME);
+		cityEntity.setCountry(getEntityCountryBelgium());
+		return cityEntity;
+	}
+	
+	public static CityData getDataCityGand() {
+		CityData cityData = new CityData();
+		cityData.setId(CITY_GAND_ID);
+		cityData.setName(CITY_GAND_NAME);
+		cityData.setCounty(CITY_GAND_COUNTY);
+		cityData.setLatitude(CITY_GAND_LATITUDE);
+		cityData.setLongitude(CITY_GAND_LONGITUDE);
+		cityData.setState(CITY_GAND_STATE);
+		cityData.setCountry(getDataCountryBelgium());
+		return cityData;
 	}
 	
 	public static CityData getDataCityBrussels() {

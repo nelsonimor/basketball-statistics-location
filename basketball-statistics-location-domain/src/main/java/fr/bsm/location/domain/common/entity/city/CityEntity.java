@@ -42,10 +42,6 @@ public class CityEntity {
   
   @NotNull
   private CountryEntity country;
-  
-  public void geocode(Double longitude,Double latitude) {
-	  this.longitude = longitude;
-	  this.latitude = latitude;
-  }
+
 
 }

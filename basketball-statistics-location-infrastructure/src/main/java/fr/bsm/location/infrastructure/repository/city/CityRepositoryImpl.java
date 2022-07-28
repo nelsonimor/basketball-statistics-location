@@ -53,7 +53,6 @@ public class CityRepositoryImpl implements CityRepository {
 
 	@Override
 	public CityEntity create(CityEntity cityEntity) {
-		
 		CityData cityData = cityEntityMapper.entityToData(cityEntity);
 		cityData.setCreationDate(new Timestamp(System.currentTimeMillis()));
 		

@@ -68,5 +68,12 @@ public class ApplicationDataUtil {
 		cityEntity.setCountry(getCountryBelgium());
 		return cityEntity;
 	}
+	
+	public static CityEntity getCityBrusselsWithoutGeocoding() {
+		CityEntity cityEntity = new CityEntity();
+		cityEntity.setName(CITY_BRUSSELS_NAME);
+		cityEntity.setCountry(getCountryBelgium());
+		return cityEntity;
+	}
 
 }

@@ -38,33 +38,33 @@ class CitiesRepositoryTest {
 	CityRepository repository;
 
 	@MockBean
-	CityEntityMapper continentEntityMapper;
-	
+	CityEntityMapper cityEntityMapper;
+
 	@MockBean
 	CountryEntityMapper countryEntityMapper;
-	
+
 	@MockBean
 	CountryJpaRepository countryJpaRepository;
-	
+
 	Integer idGenerated = 0;
 
 
 	@BeforeEach
 	void dataSetup(@Autowired EntityManager entityManager) {
 		entityManager.clear();
-		
+
 		CountryData countryData = entityManager.merge(InfrastructureDataUtil.getDataCountryBelgium());
-		
+
 		CityEntity cityEntity = InfrastructureDataUtil.getEntityCityBrussels();
-		
+
 		CityData cityData = entityManager.merge(InfrastructureDataUtil.getDataCityBrussels());
 		cityData.setCountry(countryData);
-		
+
 		idGenerated = cityData.getId();
-		when(continentEntityMapper.dataToEntity(any())).thenReturn(cityEntity);
+		when(cityEntityMapper.dataToEntity(any())).thenReturn(cityEntity);
 		when(countryJpaRepository.findById(any())).thenReturn(Optional.of(countryData));
 	}
-	
+
 	@Test
 	void testFindAll() {
 		CitiesEntity result = repository.findAll(Optional.empty());
@@ -74,7 +74,7 @@ class CitiesRepositoryTest {
 		CityEntity continentEntity = result.getItems().get(0);
 		checkCityContent(continentEntity);
 	}
-	
+
 	@Test
 	void testFindByCountry() {
 		CitiesEntity result = repository.findAll(Optional.of(InfrastructureDataUtil.COUNTRY_BELGIUM_ID));
@@ -85,7 +85,23 @@ class CitiesRepositoryTest {
 		checkCityContent(continentEntity);
 	}
 
-	
+	@Test
+	void testAddCity() {
+		when(cityEntityMapper.entityToData(any())).thenReturn(InfrastructureDataUtil.getDataCityGand());
+		when(cityEntityMapper.dataToEntity(any())).thenReturn(InfrastructureDataUtil.getEntityCityGand());
+		CityEntity result = repository.create(InfrastructureDataUtil.getEntityCityGand());
+		assertThat(result).isNotNull();
+		
+		assertThat(result.getName()).isEqualTo(InfrastructureDataUtil.CITY_GAND_NAME);
+		assertThat(result.getLatitude()).isEqualTo(InfrastructureDataUtil.CITY_GAND_LATITUDE);
+		assertThat(result.getLongitude()).isEqualTo(InfrastructureDataUtil.CITY_GAND_LONGITUDE);
+		assertThat(result.getState()).isEqualTo(InfrastructureDataUtil.CITY_GAND_STATE);
+		assertThat(result.getCounty()).isEqualTo(InfrastructureDataUtil.CITY_GAND_COUNTY);
+	}
+
+
+
+
 	void checkCityContent(CityEntity toTest) {
 		assertThat(toTest.getId()).isEqualTo(InfrastructureDataUtil.CITY_BRUSSELS_ID);
 		assertThat(toTest.getName()).isEqualTo(InfrastructureDataUtil.CITY_BRUSSELS_NAME);
@@ -93,17 +109,17 @@ class CitiesRepositoryTest {
 		assertThat(toTest.getLongitude()).isEqualTo(InfrastructureDataUtil.CITY_BRUSSELS_LONGITUDE);
 		assertThat(toTest.getState()).isEqualTo(InfrastructureDataUtil.CITY_BRUSSELS_STATE);
 		assertThat(toTest.getCounty()).isEqualTo(InfrastructureDataUtil.CITY_BRUSSELS_COUNTY);
-		
+
 		assertThat(toTest.getCountry().getId()).isEqualTo(InfrastructureDataUtil.COUNTRY_BELGIUM_ID);
 		assertThat(toTest.getCountry().getName()).isEqualTo(InfrastructureDataUtil.COUNTRY_BELGIUM_NAME);
 		assertThat(toTest.getCountry().getCodeiso2()).isEqualTo(InfrastructureDataUtil.COUNTRY_BELGIUM_CODE_ISO2);
 		assertThat(toTest.getCountry().getCodeiso3()).isEqualTo(InfrastructureDataUtil.COUNTRY_BELGIUM_CODE_ISO3);
 		assertThat(toTest.getCountry().getNumber()).isEqualTo(InfrastructureDataUtil.COUNTRY_BELGIUM_NUMBER);
-		
+
 		assertThat(toTest.getCountry().getContinent().getId()).isEqualTo(InfrastructureDataUtil.CONTINENT_EUROPE_ID);
 		assertThat(toTest.getCountry().getContinent().getName()).isEqualTo(InfrastructureDataUtil.CONTINENT_EUROPE_NAME);
 		assertThat(toTest.getCountry().getContinent().getCode()).isEqualTo(InfrastructureDataUtil.CONTINENT_EUROPE_CODE);
-		
+
 		assertThat(toTest.getCountry().getRegion().getId()).isEqualTo(InfrastructureDataUtil.REGION_WESTERN_EUROPE_ID);
 		assertThat(toTest.getCountry().getRegion().getName()).isEqualTo(InfrastructureDataUtil.REGION_WESTERN_EUROPE_NAME);
 	}

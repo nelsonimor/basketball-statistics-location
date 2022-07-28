@@ -5,6 +5,7 @@ import fr.bsm.location.domain.common.entity.continent.ContinentEntity;
 import fr.bsm.location.domain.common.entity.country.CountryEntity;
 import fr.bsm.location.domain.common.entity.region.RegionEntity;
 import fr.bsm.location.exposition.dto.CityDto;
+import fr.bsm.location.exposition.dto.CityRequestDto;
 import fr.bsm.location.exposition.dto.ContinentDto;
 import fr.bsm.location.exposition.dto.CountryDto;
 import fr.bsm.location.exposition.dto.RegionDto;
@@ -101,6 +102,14 @@ public class ExpositionDataUtil {
 		return cityEntity;
 	}
 	
+	public static CityEntity getEntityCityBrusselsWithoutGeocoding() {
+		CityEntity cityEntity = new CityEntity();
+		cityEntity.setName(CITY_BRUSSELS_NAME);
+		cityEntity.setCountry(getEntityCountryBelgium());
+		return cityEntity;
+	}
+	
+	
 	public static CityDto getDtoCityBrussels() {
 		CityDto cityDto = new CityDto();
 		cityDto.setId(CITY_BRUSSELS_ID);
@@ -111,5 +120,12 @@ public class ExpositionDataUtil {
 		cityDto.setState(CITY_BRUSSELS_STATE);
 		cityDto.setCountry(getDtoCountryBelgium());
 		return cityDto;
+	}
+	
+	public static CityRequestDto getDtoCityRequestBrussels() {
+		CityRequestDto cityRequestDto = new CityRequestDto();
+		cityRequestDto.setName(CITY_BRUSSELS_NAME);
+		cityRequestDto.setCountryname(COUNTRY_BELGIUM_NAME);
+		return cityRequestDto;
 	}
 }

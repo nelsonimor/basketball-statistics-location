@@ -20,9 +20,6 @@ public class GeocodingRepositoryImpl implements GeocodingRepository {
 
 	@Override
 	public CityEntity geocode(CityEntity cityEntity) {
-		cityEntity.setLatitude(1.1);
-		cityEntity.setLongitude(2.2);
-		
 		AddressResultDto[] results = WebClient.builder()
 				.baseUrl("https://nominatim.openstreetmap.org")
 				.defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)

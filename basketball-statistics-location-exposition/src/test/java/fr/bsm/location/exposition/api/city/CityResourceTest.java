@@ -1,7 +1,9 @@
 package fr.bsm.location.exposition.api.city;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -17,16 +19,18 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import fr.bsm.location.application.city.CityService;
 import fr.bsm.location.application.continent.ContinentService;
 import fr.bsm.location.application.country.CountryService;
 import fr.bsm.location.application.region.RegionService;
 import fr.bsm.location.domain.common.entity.city.CitiesEntity;
 import fr.bsm.location.domain.common.entity.city.CityEntity;
-import fr.bsm.location.domain.common.entity.continent.ContinentEntity;
+import fr.bsm.location.domain.common.exception.AlreadyExistException;
 import fr.bsm.location.exposition.dto.CitiesDto;
 import fr.bsm.location.exposition.dto.CityDto;
-import fr.bsm.location.exposition.dto.ContinentDto;
+import fr.bsm.location.exposition.dto.CityRequestDto;
 import fr.bsm.location.exposition.util.CityDtoMapper;
 import fr.bsm.location.exposition.util.ContinentDtoMapper;
 import fr.bsm.location.exposition.util.CountryDtoMapper;
@@ -46,28 +50,31 @@ class CityResourceTest {
 
 	@MockBean
 	private RegionService regionService;
-	
+
 	@MockBean
 	private CountryService countryService;
-	
+
 
 
 	@MockBean
 	private ContinentDtoMapper continentMapperDto;
-	
+
 	@MockBean
 	private RegionDtoMapper regionMapperDto;
-	
+
 	@MockBean
 	private CountryDtoMapper countryMapperDto;
 
-	
+
 	@MockBean
 	private CityService cityService;
-	
+
 	@MockBean
 	private CityDtoMapper cityMapperDto;
-	
+
+	@Autowired
+	private ObjectMapper objectMapper;
+
 
 
 	@Test
@@ -78,13 +85,13 @@ class CityResourceTest {
 
 		CitiesDto citiesDto = new CitiesDto();
 		citiesDto.setItems(Arrays.asList(ExpositionDataUtil.getDtoCityBrussels()));
-		
+
 		when(cityService.findAll(Optional.empty())).thenReturn(citiesEntity);
 		when(cityMapperDto.entityToCitiesDto(citiesEntity)).thenReturn(citiesDto);
 
 		performSuccessFindAll("/cities");
 	}
-	
+
 	@Test
 	void testFindAllByCountry() throws Exception {
 		CitiesEntity citiesEntity = CitiesEntity.builder()
@@ -93,23 +100,52 @@ class CityResourceTest {
 
 		CitiesDto citiesDto = new CitiesDto();
 		citiesDto.setItems(Arrays.asList(ExpositionDataUtil.getDtoCityBrussels()));
-		
+
 		when(cityService.findAll(Optional.of(ExpositionDataUtil.COUNTRY_BELGIUM_ID))).thenReturn(citiesEntity);
 		when(cityMapperDto.entityToCitiesDto(citiesEntity)).thenReturn(citiesDto);
 
 		performSuccessFindAll("/cities?countryId="+ExpositionDataUtil.COUNTRY_BELGIUM_ID);
 	}
+
+
+
+	@Test
+	void testCreateCitySuccess() throws Exception {
+		CityRequestDto cityRequestDto = ExpositionDataUtil.getDtoCityRequestBrussels();
+		when(countryService.findByName(any())).thenReturn(Optional.of(ExpositionDataUtil.getEntityCountryBelgium()));
+		when(cityService.create(ExpositionDataUtil.getEntityCityBrusselsWithoutGeocoding())).thenReturn(ExpositionDataUtil.getEntityCityBrussels());
+		when(cityMapperDto.dtoToEntity(any())).thenReturn(ExpositionDataUtil.getEntityCityBrussels());
+		
+		restMockMvc.perform(post("/cities")
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+				.content(objectMapper.writeValueAsString(cityRequestDto))
+				.accept(MediaType.APPLICATION_JSON_VALUE))
+		.andExpect(status().isCreated());
+	}
 	
+	@Test
+	void testCreateCityConflict() throws Exception {
+		CityRequestDto cityRequestDto = ExpositionDataUtil.getDtoCityRequestBrussels();
+		when(countryService.findByName(any())).thenReturn(Optional.of(ExpositionDataUtil.getEntityCountryBelgium()));
+		when(cityService.findByNameAndCountry(any(), any())).thenReturn(Optional.of(ExpositionDataUtil.getEntityCityBrussels()));
+
+		restMockMvc.perform(post("/cities")
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+				.content(objectMapper.writeValueAsString(cityRequestDto))
+				.accept(MediaType.APPLICATION_JSON_VALUE))
+		.andExpect(status().isConflict());
+	}
+
 	@Test
 	void testFindAllEmpty() throws Exception {
 		CitiesEntity citiesEntity = CitiesEntity.builder()
 				.items(new ArrayList<CityEntity>())
 				.build();
 
-		
+
 		CitiesDto citiesDto = new CitiesDto();
 		citiesDto.setItems(new ArrayList<CityDto>());
-		
+
 		when(cityService.findAll(Optional.empty())).thenReturn(citiesEntity);
 		when(cityMapperDto.entityToCitiesDto(citiesEntity)).thenReturn(citiesDto);
 
@@ -117,7 +153,7 @@ class CityResourceTest {
 				.accept(MediaType.APPLICATION_JSON))
 		.andExpect(status().isNoContent());
 	}
-	
+
 	public void performSuccessFindAll(String query) throws Exception {
 		restMockMvc.perform(get(query)
 				.accept(MediaType.APPLICATION_JSON))

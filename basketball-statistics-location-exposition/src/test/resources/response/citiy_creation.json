@@ -1,0 +1,25 @@
+{
+    "id": 40,
+    "name": "Brussels",
+    "longitude": 2.452367,
+    "latitude": 40.1245,
+    "state": "Region de Bruxelles-Capitale",
+    "county": "Bruxelles Capitale",
+    "country": {
+        "id": 30,
+        "name": "Belgium",
+        "fullname": "Belgium Kingdom",
+        "codeiso2": "BE",
+        "codeiso3": "BEL",
+        "number": "123",
+        "continent": {
+            "id": 20,
+            "code": "EU",
+            "name": "Europe"
+        },
+        "region": {
+            "id": 10,
+            "name": "Western Europe"
+        }
+    }
+}

@@ -1,6 +1,7 @@
-package fr.bsm.location.application.cities;
+package fr.bsm.location.application.city;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -57,6 +58,14 @@ class CityServiceTest {
 		CitiesEntity result = cityService.findAll(Optional.of(ApplicationDataUtil.COUNTRY_BELGIUM_ID));
 		assertThat(result.getItems()).hasSize(1);
 		verify(cityRepository).findAll(Optional.of(ApplicationDataUtil.COUNTRY_BELGIUM_ID));
+	}
+	
+	@Test
+	void testAddCity() {
+		when(geocodingRepository.geocode(any())).thenReturn(ApplicationDataUtil.getCityBrussels());
+		when(cityRepository.create(any())).thenReturn(ApplicationDataUtil.getCityBrussels());
+		CityEntity result = cityService.create(ApplicationDataUtil.getCityBrusselsWithoutGeocoding());;
+		assertThat(result).isNotNull();
 	}
 
 

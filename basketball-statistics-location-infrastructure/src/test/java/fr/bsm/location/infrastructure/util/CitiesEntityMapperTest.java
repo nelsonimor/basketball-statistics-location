@@ -29,6 +29,8 @@ class CitiesEntityMapperTest {
 		CityData data = mapper.entityToData(entity);
 		assertCity(data, entity);
 	}
+	
+
 
 	private void assertCity(CityEntity entity, CityData data) {
 		assertThat(entity.getId()).isEqualTo(data.getId());
