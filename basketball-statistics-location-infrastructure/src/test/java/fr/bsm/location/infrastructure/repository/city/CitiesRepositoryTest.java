@@ -24,6 +24,7 @@ import fr.bsm.location.infrastructure.data.city.CityData;
 import fr.bsm.location.infrastructure.data.country.CountryData;
 import fr.bsm.location.infrastructure.repository.country.CountryJpaRepository;
 import fr.bsm.location.infrastructure.util.CityEntityMapper;
+import fr.bsm.location.infrastructure.util.CountryEntityMapper;
 import fr.bsm.location.infrastructure.util.InfrastructureDataUtil;
 
 @DataJpaTest
@@ -38,6 +39,9 @@ class CitiesRepositoryTest {
 
 	@MockBean
 	CityEntityMapper continentEntityMapper;
+	
+	@MockBean
+	CountryEntityMapper countryEntityMapper;
 	
 	@MockBean
 	CountryJpaRepository countryJpaRepository;

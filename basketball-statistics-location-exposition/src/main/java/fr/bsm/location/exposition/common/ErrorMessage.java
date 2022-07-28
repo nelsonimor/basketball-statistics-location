@@ -14,6 +14,8 @@ public enum ErrorMessage {
   UNKNOWN_REQUEST_PARAMETER("Unknown request parameter"),
   MISSING_CHANNEL_TOKEN("Missing channel token"),
   ENTITY_WAS_NOT_FOUND("Entity was not found"),
+  GEOCODING_NOT_FOUND("Geocoding not found"),
+  ALREADY_EXISTS("Entity already exists"),
   AUTHENTICATION_HAS_FAILED("Authentication has failed"),
   INTERNAL_ERROR_OCCURRED("Internal error occurred");
 

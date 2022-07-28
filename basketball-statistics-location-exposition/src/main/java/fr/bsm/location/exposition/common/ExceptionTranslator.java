@@ -1,7 +1,9 @@
 package fr.bsm.location.exposition.common;
 
 import static fr.bsm.location.exposition.common.ErrorMessage.ENTITY_WAS_NOT_FOUND;
+import static fr.bsm.location.exposition.common.ErrorMessage.ALREADY_EXISTS;
 import static fr.bsm.location.exposition.common.ErrorMessage.INTERNAL_ERROR_OCCURRED;
+import static fr.bsm.location.exposition.common.ErrorMessage.GEOCODING_NOT_FOUND;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,7 +16,9 @@ import org.zalando.problem.Problem;
 import org.zalando.problem.Status;
 import org.zalando.problem.spring.web.advice.ProblemHandling;
 
+import fr.bsm.location.domain.common.exception.AlreadyExistException;
 import fr.bsm.location.domain.common.exception.EntityNotFoundException;
+import fr.bsm.location.domain.common.exception.GeocodingException;
 
 @ControllerAdvice
 public class ExceptionTranslator implements ProblemHandling {
@@ -29,6 +33,16 @@ public class ExceptionTranslator implements ProblemHandling {
 	@ExceptionHandler(EntityNotFoundException.class)
 	public ResponseEntity<Problem> handleEntityNotFoundException(EntityNotFoundException e) {
 		return buildResponse(ENTITY_WAS_NOT_FOUND, e, HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(GeocodingException.class)
+	public ResponseEntity<Problem> handleGeocodingException(GeocodingException e) {
+		return buildResponse(GEOCODING_NOT_FOUND, e, HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(AlreadyExistException.class)
+	public ResponseEntity<Problem> handleAlreadyExistException(AlreadyExistException e) {
+		return buildResponse(ALREADY_EXISTS, e, HttpStatus.CONFLICT);
 	}
 
 	@ExceptionHandler(MethodArgumentTypeMismatchException.class)

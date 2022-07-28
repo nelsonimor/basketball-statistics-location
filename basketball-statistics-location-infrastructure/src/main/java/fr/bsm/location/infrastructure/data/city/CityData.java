@@ -41,7 +41,7 @@ public class CityData extends CoreData {
 	@NotNull
 	private String county;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	@JoinColumn(name = "fk_country_id",nullable = false)
 	@NotNull
 	private CountryData country;
@@ -57,6 +57,8 @@ public class CityData extends CoreData {
 		this.county = county;
 		this.country = country;
 	}
+	
+
 
 
 }

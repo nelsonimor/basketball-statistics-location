@@ -73,6 +73,12 @@
 			</dependency>
 
 			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-webflux</artifactId>
+				<version>${spring-boot.version}</version>
+			</dependency>
+
+			<dependency>
 				<groupId>au.com.dius.pact.provider</groupId>
 				<artifactId>junit5spring</artifactId>
 				<version>${pact.version}</version>

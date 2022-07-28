@@ -20,19 +20,23 @@ import fr.bsm.location.application.city.CityServiceImpl;
 import fr.bsm.location.domain.common.entity.city.CitiesEntity;
 import fr.bsm.location.domain.common.entity.city.CityEntity;
 import fr.bsm.location.domain.repository.city.CityRepository;
+import fr.bsm.location.domain.repository.city.GeocodingRepository;
 
 @ExtendWith(MockitoExtension.class)
 class CityServiceTest {
 
 	@Mock
 	CityRepository cityRepository;
+	
+	@Mock
+	GeocodingRepository geocodingRepository;
 
 	CityService cityService;
 
 
 	@BeforeEach
 	void setUp() {
-		cityService = new CityServiceImpl(cityRepository);
+		cityService = new CityServiceImpl(cityRepository,geocodingRepository);
 	}
 
 	@Test
