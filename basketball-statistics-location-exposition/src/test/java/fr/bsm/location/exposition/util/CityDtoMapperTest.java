@@ -8,8 +8,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import fr.bsm.location.domain.common.entity.city.CitiesEntity;
+import fr.bsm.location.domain.common.entity.city.CityEntity;
 import fr.bsm.location.exposition.dto.CitiesDto;
 import fr.bsm.location.exposition.dto.CityDto;
+import fr.bsm.location.exposition.dto.CityRequestDto;
 import fr.bsm.location.exposition.dto.CountriesDto;
 
 class CityDtoMapperTest {
@@ -44,6 +46,18 @@ class CityDtoMapperTest {
 		CitiesDto citiesDto = mapper.entityToCitiesDto(citiesEntity);
 		assertThat(citiesDto).isNotNull();
 		assertThat(citiesDto.getItems()).hasSize(1);
+	}
+	
+	@Test
+	void testDtoToEntity() {
+		CityRequestDto cityRequestDto = new CityRequestDto();
+		cityRequestDto.setCountryname(ExpositionDataUtil.COUNTRY_BELGIUM_NAME);
+		cityRequestDto.setName(ExpositionDataUtil.CITY_BRUSSELS_NAME);
+
+	
+		CityEntity cityEntity = mapper.dtoToEntity(cityRequestDto);
+		assertThat(cityEntity).isNotNull();
+
 	}
 	
 }

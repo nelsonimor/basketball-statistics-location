@@ -53,7 +53,7 @@ public class CountryRepositoryImpl implements CountryRepository {
 				return CountriesEntity.builder().items(countryJpaRepository.findByRegion(region.get()).stream().map(countryEntityMapper::dataToEntity).collect(Collectors.toList())).build();
 			}
 		}
-		else if(regiontId.isPresent() && continentId.isPresent()) {
+		else if(regiontId.isPresent()) {
 			Optional<RegionData> region = regionJpaRepository.findById(regiontId.get());
 			Optional<ContinentData> continent = continentJpaRepository.findById(continentId.get());
 			if(region.isPresent() && continent.isPresent()) {

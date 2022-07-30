@@ -1,6 +1,7 @@
 package fr.bsm.location.exposition.common;
 
 import static fr.bsm.location.exposition.common.ErrorMessage.ENTITY_WAS_NOT_FOUND;
+import static fr.bsm.location.exposition.common.ErrorMessage.GEOCODING_NOT_FOUND;
 import static fr.bsm.location.exposition.common.ErrorMessage.INTERNAL_ERROR_OCCURRED;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -8,11 +9,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.zalando.problem.Problem;
 import org.zalando.problem.Status;
 
 import fr.bsm.location.domain.common.exception.EntityNotFoundException;
+import fr.bsm.location.domain.common.exception.GeocodingException;
 import fr.bsm.location.exposition.common.ErrorMessage;
 import fr.bsm.location.exposition.common.ExceptionTranslator;
 
@@ -43,6 +46,15 @@ class ExceptionTranslatorTest {
 		ResponseEntity<Problem> response = translator.handleEntityNotFoundException(exception);
 		assertResponse(response, HttpStatus.NOT_FOUND, ENTITY_WAS_NOT_FOUND, exceptionMessage);
 	}
+	
+	@Test
+	void testHandleGeocodingException() {
+		String exceptionMessage = "No geocoding found";
+		GeocodingException exception = new GeocodingException(exceptionMessage);
+		ResponseEntity<Problem> response = translator.handleGeocodingException(exception);
+		assertResponse(response, HttpStatus.BAD_REQUEST, GEOCODING_NOT_FOUND, exceptionMessage);
+	}
+	
 
 	@Test
 	void testHandleMethodArgumentTypeMismatch() {

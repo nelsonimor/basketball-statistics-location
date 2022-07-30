@@ -27,7 +27,6 @@ import fr.bsm.location.application.country.CountryService;
 import fr.bsm.location.application.region.RegionService;
 import fr.bsm.location.domain.common.entity.city.CitiesEntity;
 import fr.bsm.location.domain.common.entity.city.CityEntity;
-import fr.bsm.location.domain.common.exception.AlreadyExistException;
 import fr.bsm.location.exposition.dto.CitiesDto;
 import fr.bsm.location.exposition.dto.CityDto;
 import fr.bsm.location.exposition.dto.CityRequestDto;
@@ -134,6 +133,20 @@ class CityResourceTest {
 				.content(objectMapper.writeValueAsString(cityRequestDto))
 				.accept(MediaType.APPLICATION_JSON_VALUE))
 		.andExpect(status().isConflict());
+	}
+	
+	
+	@Test
+	void testCreateBadCountry() throws Exception {
+		CityRequestDto cityRequestDto = ExpositionDataUtil.getDtoCityRequestBrussels();
+		when(countryService.findByName(any())).thenReturn(Optional.empty());
+
+
+		restMockMvc.perform(post("/cities")
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+				.content(objectMapper.writeValueAsString(cityRequestDto))
+				.accept(MediaType.APPLICATION_JSON_VALUE))
+		.andExpect(status().isNotFound());
 	}
 
 	@Test

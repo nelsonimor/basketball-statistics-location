@@ -22,7 +22,7 @@ import fr.bsm.location.infrastructure.util.InfrastructureDataUtil;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 
-public class GeocodingRespositoryTest {
+class GeocodingRespositoryTest {
 
 
 	GeocodingRepository geocodingRepository;
