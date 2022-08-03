@@ -21,12 +21,12 @@ public class ApplicationDataUtil {
 	public static final String COUNTRY_BELGIUM_NUMBER = "123";
 	public static final String COUNTRY_BELGIUM_FULLNAME = "Belgium Kingdom";
 	
-	private static final Integer CITY_BRUSSELS_ID = 40;
-	private static final String CITY_BRUSSELS_NAME = "Brussels";
-	private static final Double CITY_BRUSSELS_LONGITUDE = 2.452367;
-	private static final Double CITY_BRUSSELS_LATITUDE = 40.1245;
-	private static final String CITY_BRUSSELS_STATE = "Région de Bruxelles-Capitale";
-	private static final String CITY_BRUSSELS_COUNTY = "Bruxelles-Capitale";
+	public static final Integer CITY_BRUSSELS_ID = 40;
+	public static final String CITY_BRUSSELS_NAME = "Brussels";
+	public static final Double CITY_BRUSSELS_LONGITUDE = 2.452367;
+	public static final Double CITY_BRUSSELS_LATITUDE = 40.1245;
+	public static final String CITY_BRUSSELS_STATE = "Région de Bruxelles-Capitale";
+	public static final String CITY_BRUSSELS_COUNTY = "Bruxelles-Capitale";
 
 
 	public static RegionEntity getRegionWesternEurope() {

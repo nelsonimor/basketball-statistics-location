@@ -1,6 +1,8 @@
 package fr.bsm.location.exposition.api.city;
 
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -90,6 +92,18 @@ class CityResourceIntTest {
 				.content(objectMapper.writeValueAsString(cityRequestDto))
 				.accept(MediaType.APPLICATION_JSON_VALUE))
 		.andExpect(status().isCreated());
+	}
+	
+	@Test
+	void testDeleteCity() throws Exception {
+		when(cityService.findById(ExpositionDataUtil.CITY_BRUSSELS_ID)).thenReturn(Optional.of(ExpositionDataUtil.getEntityCityBrussels()));
+		doNothing().when(cityService).delete(ExpositionDataUtil.CITY_BRUSSELS_ID);
+
+		restMockMvc.perform(delete("/cities/"+ExpositionDataUtil.CITY_BRUSSELS_ID)
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+				.content(objectMapper.writeValueAsString(ExpositionDataUtil.getEntityCityBrussels()))
+				.accept(MediaType.APPLICATION_JSON_VALUE))
+		.andExpect(status().isOk());
 	}
 
 

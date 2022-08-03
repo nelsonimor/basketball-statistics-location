@@ -2,6 +2,7 @@ package fr.bsm.location.application.city;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -16,8 +17,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import fr.bsm.application.util.ApplicationDataUtil;
-import fr.bsm.location.application.city.CityService;
-import fr.bsm.location.application.city.CityServiceImpl;
 import fr.bsm.location.domain.common.entity.city.CitiesEntity;
 import fr.bsm.location.domain.common.entity.city.CityEntity;
 import fr.bsm.location.domain.repository.city.CityRepository;
@@ -67,6 +66,32 @@ class CityServiceTest {
 		CityEntity result = cityService.create(ApplicationDataUtil.getCityBrusselsWithoutGeocoding());;
 		assertThat(result).isNotNull();
 	}
+	
+	@Test
+	void testFindById() {
+		when(cityRepository.findById(ApplicationDataUtil.CITY_BRUSSELS_ID)).thenReturn(Optional.of(ApplicationDataUtil.getCityBrussels()));
+		Optional<CityEntity> result = cityService.findById(ApplicationDataUtil.CITY_BRUSSELS_ID);
+		assertThat(result).isNotNull();
+		assertThat(result.get()).isNotNull();
+		assertThat(result.get().getId()).isEqualTo(ApplicationDataUtil.CITY_BRUSSELS_ID);
+	}
+	
+	@Test
+	void testDeleteById() {
+		doNothing().when(cityRepository).delete(ApplicationDataUtil.CITY_BRUSSELS_ID);
+		cityService.delete(ApplicationDataUtil.CITY_BRUSSELS_ID);
+	}
+	
+	@Test
+	void testFindByNameAndCountry() {
+		when(cityRepository.findByNameAndCountry(ApplicationDataUtil.CITY_BRUSSELS_NAME,ApplicationDataUtil.getCountryBelgium())).thenReturn(Optional.of(ApplicationDataUtil.getCityBrussels()));
+		Optional<CityEntity> result = cityService.findByNameAndCountry(ApplicationDataUtil.CITY_BRUSSELS_NAME,ApplicationDataUtil.getCountryBelgium());
+		assertThat(result).isNotNull();
+		assertThat(result.get()).isNotNull();
+		assertThat(result.get().getId()).isEqualTo(ApplicationDataUtil.CITY_BRUSSELS_ID);
+	}
+	
+
 
 
 }

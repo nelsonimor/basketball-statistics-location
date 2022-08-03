@@ -1,7 +1,9 @@
 package fr.bsm.location.exposition.api.city;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -148,6 +150,54 @@ class CityResourceTest {
 				.accept(MediaType.APPLICATION_JSON_VALUE))
 		.andExpect(status().isNotFound());
 	}
+	
+	
+	@Test
+	void testDeleteCitySuccess() throws Exception {
+		when(cityService.findById(ExpositionDataUtil.CITY_BRUSSELS_ID)).thenReturn(Optional.of(ExpositionDataUtil.getEntityCityBrussels()));
+		doNothing().when(cityService).delete(ExpositionDataUtil.CITY_BRUSSELS_ID);
+
+		restMockMvc.perform(delete("/cities/"+ExpositionDataUtil.CITY_BRUSSELS_ID)
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+				.content(objectMapper.writeValueAsString(ExpositionDataUtil.getEntityCityBrussels()))
+				.accept(MediaType.APPLICATION_JSON_VALUE))
+		.andExpect(status().isOk());
+	}
+	
+	@Test
+	void testDeleteCityFailed() throws Exception {
+		when(cityService.findById(ExpositionDataUtil.CITY_BRUSSELS_ID)).thenReturn(Optional.empty());
+
+		restMockMvc.perform(delete("/cities/"+ExpositionDataUtil.CITY_BRUSSELS_ID)
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+				.accept(MediaType.APPLICATION_JSON_VALUE))
+		.andExpect(status().isNotFound());
+	}
+	
+	
+	@Test
+	void testFindByIdSuccessful() throws Exception {
+		CityEntity brusselEntity = ExpositionDataUtil.getEntityCityBrussels();
+
+		CityDto brusselDto = ExpositionDataUtil.getDtoCityBrussels();
+		when(cityService.findById(ExpositionDataUtil.CITY_BRUSSELS_ID)).thenReturn(Optional.of(brusselEntity));
+		when(cityMapperDto.entityToDto(brusselEntity)).thenReturn(brusselDto);
+
+		performSuccessFindOne("/cities/"+ExpositionDataUtil.CITY_BRUSSELS_ID);
+
+	}
+	
+	@Test
+	void testFindByIdNotFound() throws Exception {
+		when(cityService.findById(ExpositionDataUtil.CITY_BRUSSELS_ID)).thenReturn(Optional.empty());
+		
+
+		restMockMvc.perform(get("/cities/"+ExpositionDataUtil.CITY_BRUSSELS_ID)
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+				.accept(MediaType.APPLICATION_JSON_VALUE))
+		.andExpect(status().isNotFound());
+	}
+
 
 	@Test
 	void testFindAllEmpty() throws Exception {
@@ -190,6 +240,31 @@ class CityResourceTest {
 		.andExpect(MockMvcResultMatchers.jsonPath("$.items[0].country.continent.name").value(ExpositionDataUtil.CONTINENT_EUROPE_NAME))
 		.andExpect(MockMvcResultMatchers.jsonPath("$.items[0].country.continent.code").value(ExpositionDataUtil.CONTINENT_EUROPE_CODE))
 		;
+	}
+	
+	public void performSuccessFindOne(String query) throws Exception {
+		//todo
+		restMockMvc.perform(get(query)
+				.accept(MediaType.APPLICATION_JSON))
+		.andExpect(status().isOk())
+		.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+		.andExpect(MockMvcResultMatchers.jsonPath("$.id").value(ExpositionDataUtil.CITY_BRUSSELS_ID))
+		.andExpect(MockMvcResultMatchers.jsonPath("$.name").value(ExpositionDataUtil.CITY_BRUSSELS_NAME))
+		.andExpect(MockMvcResultMatchers.jsonPath("$.state").value(ExpositionDataUtil.CITY_BRUSSELS_STATE))
+		.andExpect(MockMvcResultMatchers.jsonPath("$.county").value(ExpositionDataUtil.CITY_BRUSSELS_COUNTY))
+		.andExpect(MockMvcResultMatchers.jsonPath("$.longitude").value(ExpositionDataUtil.CITY_BRUSSELS_LONGITUDE))
+		.andExpect(MockMvcResultMatchers.jsonPath("$.latitude").value(ExpositionDataUtil.CITY_BRUSSELS_LATITUDE))
+		.andExpect(MockMvcResultMatchers.jsonPath("$.country.id").value(ExpositionDataUtil.COUNTRY_BELGIUM_ID))
+		.andExpect(MockMvcResultMatchers.jsonPath("$.country.name").value(ExpositionDataUtil.COUNTRY_BELGIUM_NAME))
+		.andExpect(MockMvcResultMatchers.jsonPath("$.country.codeiso2").value(ExpositionDataUtil.COUNTRY_BELGIUM_CODE_ISO2))
+		.andExpect(MockMvcResultMatchers.jsonPath("$.country.codeiso3").value(ExpositionDataUtil.COUNTRY_BELGIUM_CODE_ISO3))
+		.andExpect(MockMvcResultMatchers.jsonPath("$.country.fullname").value(ExpositionDataUtil.COUNTRY_BELGIUM_FULLNAME))
+		.andExpect(MockMvcResultMatchers.jsonPath("$.country.number").value(ExpositionDataUtil.COUNTRY_BELGIUM_NUMBER))
+		.andExpect(MockMvcResultMatchers.jsonPath("$.country.region.id").value(ExpositionDataUtil.REGION_WESTERN_EUROPE_ID))
+		.andExpect(MockMvcResultMatchers.jsonPath("$.country.region.name").value(ExpositionDataUtil.REGION_WESTERN_EUROPE_NAME))
+		.andExpect(MockMvcResultMatchers.jsonPath("$.country.continent.id").value(ExpositionDataUtil.CONTINENT_EUROPE_ID))
+		.andExpect(MockMvcResultMatchers.jsonPath("$.country.continent.name").value(ExpositionDataUtil.CONTINENT_EUROPE_NAME))
+		.andExpect(MockMvcResultMatchers.jsonPath("$.country.continent.code").value(ExpositionDataUtil.CONTINENT_EUROPE_CODE));
 	}
 
 

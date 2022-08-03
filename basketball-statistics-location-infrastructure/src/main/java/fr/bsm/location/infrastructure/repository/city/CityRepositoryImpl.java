@@ -63,7 +63,32 @@ public class CityRepositoryImpl implements CityRepository {
 
 	@Override
 	public Optional<CityEntity> findByNameAndCountry(String name, CountryEntity countryEntity) {
+		
+		System.out.println("CityRepositoryImpl.findByNameAndCountry() name = "+name+" countryEntity = "+countryEntity);
+		
+		CountryData countryData = countryEntityMapper.entityToData(countryEntity);
+		
+		System.out.println("CityRepositoryImpl.findByNameAndCountry(1) countryData = "+countryData);
+		System.out.println("CityRepositoryImpl.findByNameAndCountry(2) countryData = "+countryData.getId());
+		
+		Optional<CityData> c = cityJpaRepository.findByNameAndCountry(name, countryData);
+		
+		System.out.println("CityRepositoryImpl.findByNameAndCountry(1) c = "+c);
+		System.out.println("CityRepositoryImpl.findByNameAndCountry(2) c = "+c.get());
+		
 		return cityJpaRepository.findByNameAndCountry(name,countryEntityMapper.entityToData(countryEntity)).map(cityEntityMapper::dataToEntity);
+	}
+
+
+	@Override
+	public Optional<CityEntity> findById(Integer id) {
+		return cityJpaRepository.findById(id).map(cityEntityMapper::dataToEntity);
+	}
+
+
+	@Override
+	public void delete(Integer id) {
+		cityJpaRepository.deleteById(id);
 	}
 
 

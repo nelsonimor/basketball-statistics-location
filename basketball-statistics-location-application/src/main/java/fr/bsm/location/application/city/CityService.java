@@ -9,10 +9,14 @@ import fr.bsm.location.domain.common.entity.country.CountryEntity;
 
 public interface CityService {
 
-  CitiesEntity findAll(Optional<Integer> countryId);
-  
-  Optional<CityEntity> findByNameAndCountry(String name,CountryEntity countryEntity);
-  
-  CityEntity create(CityEntity cityEntity);
-  
+	Optional<CityEntity> findById(Integer id);
+
+	CitiesEntity findAll(Optional<Integer> countryId);
+
+	Optional<CityEntity> findByNameAndCountry(String name,CountryEntity countryEntity);
+
+	CityEntity create(CityEntity cityEntity);
+	
+	void delete(Integer id);
+
 }

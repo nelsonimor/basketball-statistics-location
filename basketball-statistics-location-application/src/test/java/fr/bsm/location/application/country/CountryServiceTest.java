@@ -15,10 +15,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import fr.bsm.application.util.ApplicationDataUtil;
-import fr.bsm.location.application.country.CountryService;
-import fr.bsm.location.application.country.CountryServiceImpl;
-import fr.bsm.location.domain.common.entity.continent.ContinentEntity;
-import fr.bsm.location.domain.common.entity.continent.ContinentsEntity;
 import fr.bsm.location.domain.common.entity.country.CountriesEntity;
 import fr.bsm.location.domain.common.entity.country.CountryEntity;
 import fr.bsm.location.domain.repository.country.CountryRepository;

@@ -10,6 +10,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import fr.bsm.location.domain.common.entity.city.CityEntity;
 import fr.bsm.location.domain.common.exception.GeocodingException;
 import fr.bsm.location.domain.repository.city.GeocodingRepository;
+import fr.bsm.location.infrastructure.config.GeocodingProperties;
 import fr.bsm.location.infrastructure.data.geocoding.AddressDto;
 import fr.bsm.location.infrastructure.data.geocoding.AddressResultDto;
 
@@ -17,20 +18,26 @@ import fr.bsm.location.infrastructure.data.geocoding.AddressResultDto;
 public class GeocodingRepositoryImpl implements GeocodingRepository {
 	
 	private static final String NA = "Not available";
+	
+	private final GeocodingProperties geocodingProperties;
+	
+	public GeocodingRepositoryImpl(GeocodingProperties geocodingProperties) {
+		this.geocodingProperties = geocodingProperties;
+	}
 
 	@Override
 	public CityEntity geocode(CityEntity cityEntity) {
 		AddressResultDto[] results = WebClient.builder()
-				.baseUrl("https://nominatim.openstreetmap.org")
+				.baseUrl(geocodingProperties.getUrl())
 				.defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
 				.build().get()
 				.uri(uriBuilder -> uriBuilder
 						.path("/")
-						.queryParam("addressdetails", "2")
+						.queryParam("addressdetails", geocodingProperties.getAddressdetails())
 						.queryParam("q", cityEntity.getName()+","+cityEntity.getCountry().getName())
-						.queryParam("format", "json")
-						.queryParam("limit", "1")
-						.queryParam("accept-language", "en")
+						.queryParam("format",geocodingProperties.getFormat())
+						.queryParam("limit", geocodingProperties.getLimit())
+						.queryParam("accept-language", geocodingProperties.getAcceptlanguage())
 						.build())
 				.retrieve()
 				.bodyToMono(AddressResultDto[].class).share()

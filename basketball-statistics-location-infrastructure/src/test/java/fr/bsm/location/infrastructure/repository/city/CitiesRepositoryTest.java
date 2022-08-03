@@ -63,6 +63,7 @@ class CitiesRepositoryTest {
 		idGenerated = cityData.getId();
 		when(cityEntityMapper.dataToEntity(any())).thenReturn(cityEntity);
 		when(countryJpaRepository.findById(any())).thenReturn(Optional.of(countryData));
+		when(countryEntityMapper.entityToData(any())).thenReturn(countryData);
 	}
 
 	@Test
@@ -97,6 +98,31 @@ class CitiesRepositoryTest {
 		assertThat(result.getLongitude()).isEqualTo(InfrastructureDataUtil.CITY_GAND_LONGITUDE);
 		assertThat(result.getState()).isEqualTo(InfrastructureDataUtil.CITY_GAND_STATE);
 		assertThat(result.getCounty()).isEqualTo(InfrastructureDataUtil.CITY_GAND_COUNTY);
+	}
+	
+	
+	@Test
+	void testFindById() {
+		Optional<CityEntity> result = repository.findById(idGenerated);
+		assertThat(result).isPresent();
+		checkCityContent(result.get());
+	}
+	
+	@Test
+	void testFindByNameAndCountry() {
+		Optional<CityEntity> result2 = repository.findByNameAndCountry(InfrastructureDataUtil.CITY_BRUSSELS_NAME, InfrastructureDataUtil.getEntityCountryBelgium());
+		assertThat(result2).isPresent();
+		checkCityContent(result2.get());
+	}
+	
+	
+	@Test
+	void testDeleteCity() {
+		repository.delete(idGenerated);
+		
+		CitiesEntity result = repository.findAll(Optional.empty());
+		assertThat(result).isNotNull();
+		assertThat(result.getItems().size()).isZero();
 	}
 
 

@@ -8,6 +8,10 @@ import fr.bsm.location.domain.common.entity.country.CountryEntity;
 
 public interface CityRepository {
 	
+	Optional<CityEntity> findById(Integer id);
+	
+	void delete(Integer id);
+	
 	CitiesEntity findAll(Optional<Integer> countryId);
 	
 	CityEntity create(CityEntity cityEntity);

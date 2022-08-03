@@ -3,6 +3,7 @@ package fr.bsm.location.application.city;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import fr.bsm.location.domain.common.entity.city.CitiesEntity;
 import fr.bsm.location.domain.common.entity.city.CityEntity;
@@ -35,6 +36,17 @@ public class CityServiceImpl implements CityService {
 	@Override
 	public Optional<CityEntity> findByNameAndCountry(String name, CountryEntity countryEntity) {
 		return cityRepository.findByNameAndCountry(name, countryEntity);
+	}
+
+	@Override
+	public Optional<CityEntity> findById(Integer id) {
+		return cityRepository.findById(id);
+	}
+
+	@Transactional
+	@Override
+	public void delete(Integer id) {
+		cityRepository.delete(id);
 	}
 
 }

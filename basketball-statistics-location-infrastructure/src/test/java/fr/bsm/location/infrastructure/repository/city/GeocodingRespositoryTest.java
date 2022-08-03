@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.IOException;
 
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,6 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import fr.bsm.location.domain.common.entity.city.CityEntity;
 import fr.bsm.location.domain.repository.city.GeocodingRepository;
+import fr.bsm.location.infrastructure.config.GeocodingProperties;
 import fr.bsm.location.infrastructure.data.geocoding.AddressDto;
 import fr.bsm.location.infrastructure.data.geocoding.AddressResultDto;
 import fr.bsm.location.infrastructure.util.InfrastructureDataUtil;
@@ -28,13 +28,23 @@ class GeocodingRespositoryTest {
 	GeocodingRepository geocodingRepository;
 
 	private MockWebServer server;
+	
+	private GeocodingProperties geocodingProperties;
 
 
 	@BeforeEach
 	public void setUp() throws IOException {
+		
+		geocodingProperties = new GeocodingProperties();
+		geocodingProperties.setAcceptlanguage("en");
+		geocodingProperties.setUrl("https://nominatim.openstreetmap.org");
+		geocodingProperties.setAddressdetails(2);
+		geocodingProperties.setFormat("json");
+		geocodingProperties.setLimit(1);
+		
 		server = new MockWebServer();
 		server.start();
-		geocodingRepository = new GeocodingRepositoryImpl();
+		geocodingRepository = new GeocodingRepositoryImpl(geocodingProperties);
 	}
 
 	@AfterEach

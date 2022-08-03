@@ -7,3 +7,11 @@ spring:
   profiles:
     # The active Spring profile can be filled in by maven or setting -Dspring.profiles.active` option in `JAVA_OPTS`
     active: #spring.profiles.active#
+    
+geocoding:
+  openstreetmap:
+    url: https://nominatim.openstreetmap.org
+    addressdetails: 2
+    format: json
+    limit: 1
+    acceptlanguage: en
