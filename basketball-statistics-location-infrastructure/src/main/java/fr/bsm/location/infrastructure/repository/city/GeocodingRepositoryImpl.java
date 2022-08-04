@@ -15,9 +15,11 @@ import fr.bsm.location.infrastructure.config.GeocodingProperties;
 import fr.bsm.location.infrastructure.config.SpringProfileConstants;
 import fr.bsm.location.infrastructure.data.geocoding.AddressDto;
 import fr.bsm.location.infrastructure.data.geocoding.AddressResultDto;
+import lombok.extern.slf4j.Slf4j;
 
 @Repository
 @Profile(SpringProfileConstants.UNMOCK_GEOCODING)
+@Slf4j
 public class GeocodingRepositoryImpl implements GeocodingRepository {
 	
 	private static final String NA = "Not available";
@@ -48,6 +50,7 @@ public class GeocodingRepositoryImpl implements GeocodingRepository {
 
 		
 		if(results == null || results.length == 0) {
+			log.debug("No geocoding result for city : '{}' and country : '{}'",cityEntity.getName(),cityEntity.getCountry().getName());
 			throw new GeocodingException("No geocoding result for city : '"+cityEntity.getName()+"' and country : '"+cityEntity.getCountry().getName()+"'");
 		}
 		

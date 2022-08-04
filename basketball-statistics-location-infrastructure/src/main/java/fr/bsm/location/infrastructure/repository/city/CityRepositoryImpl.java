@@ -15,8 +15,10 @@ import fr.bsm.location.infrastructure.data.country.CountryData;
 import fr.bsm.location.infrastructure.repository.country.CountryJpaRepository;
 import fr.bsm.location.infrastructure.util.CityEntityMapper;
 import fr.bsm.location.infrastructure.util.CountryEntityMapper;
+import lombok.extern.slf4j.Slf4j;
 
 @Repository
+@Slf4j
 public class CityRepositoryImpl implements CityRepository {
 	
 	private final CityJpaRepository cityJpaRepository;
@@ -43,6 +45,7 @@ public class CityRepositoryImpl implements CityRepository {
 				return CitiesEntity.builder().items(cityJpaRepository.findByCountry(countryData.get()).stream().map(cityEntityMapper::dataToEntity).collect(Collectors.toList())).build();
 			}
 			else {
+				log.error("No country found for id : {}",countryId.get());
 				return null;
 			}
 
@@ -55,8 +58,6 @@ public class CityRepositoryImpl implements CityRepository {
 	public CityEntity create(CityEntity cityEntity) {
 		CityData cityData = cityEntityMapper.entityToData(cityEntity);
 		cityData.setCreationDate(new Timestamp(System.currentTimeMillis()));
-		
-		
 		return cityEntityMapper.dataToEntity(cityJpaRepository.save(cityData));
 	}
 

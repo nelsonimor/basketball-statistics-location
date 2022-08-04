@@ -57,6 +57,7 @@ public class CityResource {
 	public ResponseEntity<Integer> deleteById(@PathVariable Integer cityId) {
 		Optional<CityEntity> cityEntity = cityService.findById(cityId);
 		if(cityEntity.isEmpty()) {
+			log.error("No city found with id : {}",cityEntity);
 			throw new EntityNotFoundException("No city found for id : "+cityId);
 		}
 
@@ -70,6 +71,7 @@ public class CityResource {
 
 		CitiesEntity citiesEntity = cityService.findAll(Optional.ofNullable(cityQueryDto.getCountryId()));
 		if (citiesEntity == null || citiesEntity.getItems()==null || citiesEntity.getItems().isEmpty()) {
+			log.error("No cities found");
 			return ResponseEntity.noContent().build();
 		}
 		return ResponseEntity.ok(cityDtoMapper.entityToCitiesDto(citiesEntity));
@@ -87,6 +89,7 @@ public class CityResource {
 		//check if city does not already exist
 		Optional<CityEntity> city = cityService.findByNameAndCountry(cityRequestDto.getName(), country.get());
 		if(city.isPresent()) {
+			log.error("A city already exists with name : '{}' for country : '{}'",cityRequestDto.getName(), cityRequestDto.getCountryname());
 			throw new AlreadyExistException("A city already exists with name : '"+cityRequestDto.getName()+"' for country : '"+cityRequestDto.getCountryname()+"'");
 		}
 

@@ -12,9 +12,11 @@ import fr.bsm.location.domain.common.exception.EntityNotFoundException;
 import fr.bsm.location.exposition.dto.RegionDto;
 import fr.bsm.location.exposition.dto.RegionsDto;
 import fr.bsm.location.exposition.util.RegionDtoMapper;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Validated
+@Slf4j
 public class RegionResource {
 
 	private final RegionService regionService;
@@ -31,6 +33,7 @@ public class RegionResource {
 
 		RegionsEntity regionsEntity = regionService.findAll();
 		if (regionsEntity != null && regionsEntity.getItems().isEmpty()) {
+			log.error("No regions found");
 			return ResponseEntity.noContent().build();
 		}
 		return ResponseEntity.ok(regionDtoMapper.entityToRegionsDto(regionsEntity));

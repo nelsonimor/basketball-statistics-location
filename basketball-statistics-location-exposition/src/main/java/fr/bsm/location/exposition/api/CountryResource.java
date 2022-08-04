@@ -15,9 +15,11 @@ import fr.bsm.location.exposition.dto.CountriesDto;
 import fr.bsm.location.exposition.dto.CountryDto;
 import fr.bsm.location.exposition.dto.CountryRequestDto;
 import fr.bsm.location.exposition.util.CountryDtoMapper;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Validated
+@Slf4j
 public class CountryResource {
 
 	private final CountryService countryService;
@@ -35,6 +37,7 @@ public class CountryResource {
 				Optional.ofNullable(countryRequestDto.getRegionId())
 				);
 		if (countriesEntity == null || countriesEntity.getItems()==null || countriesEntity.getItems().isEmpty()) {
+			log.error("No countries found");
 			return ResponseEntity.noContent().build();
 		}
 		return ResponseEntity.ok(countryDtoMapper.entityToCountriesDto(countriesEntity));

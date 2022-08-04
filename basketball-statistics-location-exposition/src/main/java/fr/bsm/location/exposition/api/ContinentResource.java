@@ -12,9 +12,11 @@ import fr.bsm.location.domain.common.exception.EntityNotFoundException;
 import fr.bsm.location.exposition.dto.ContinentDto;
 import fr.bsm.location.exposition.dto.ContinentsDto;
 import fr.bsm.location.exposition.util.ContinentDtoMapper;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Validated
+@Slf4j
 public class ContinentResource {
 
 	private final ContinentService continentService;
@@ -31,6 +33,7 @@ public class ContinentResource {
 
 		ContinentsEntity continentsEntity = continentService.findAll();
 		if (continentsEntity != null && continentsEntity.getItems().isEmpty()) {
+			log.error("No continents found");
 			return ResponseEntity.noContent().build();
 		}
 		return ResponseEntity.ok(continentDtoMapper.entityToContinentsDto(continentsEntity));
