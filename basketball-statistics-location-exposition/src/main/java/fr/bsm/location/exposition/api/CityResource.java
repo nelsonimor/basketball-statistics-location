@@ -75,32 +75,25 @@ public class CityResource {
 
 	@PostMapping(value = "/cities")
 	public ResponseEntity<CityDto> create(@Valid @RequestBody CityRequestDto cityRequestDto) {
-		
-		try {
-			//check if country really exist
-			Optional<CountryEntity> country = countryService.findByName(cityRequestDto.getCountryname());
-			if(!country.isPresent()) {
-				throw new EntityNotFoundException("No country found for countryName : "+cityRequestDto.getCountryname());
-			}
-
-			//check if city does not already exist
-			Optional<CityEntity> city = cityService.findByNameAndCountry(cityRequestDto.getName(), country.get());
-			if(city.isPresent()) {
-				throw new AlreadyExistException("A city already exists with name : '"+cityRequestDto.getName()+"' for country : '"+cityRequestDto.getCountryname()+"'");
-			}
-
-			//mapping cityRequestDto to cityEntity
-			CityEntity cityEntity = cityDtoMapper.dtoToEntity(cityRequestDto);
-			cityEntity.setCountry(country.get());
-
-			//calling service creation including geocoding
-			cityEntity = cityService.create(cityEntity);
-			return ResponseEntity.status(HttpStatus.CREATED).body(cityDtoMapper.entityToDto(cityEntity));
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
+		//check if country really exist
+		Optional<CountryEntity> country = countryService.findByName(cityRequestDto.getCountryname());
+		if(!country.isPresent()) {
+			throw new EntityNotFoundException("No country found for countryName : "+cityRequestDto.getCountryname());
 		}
 
+		//check if city does not already exist
+		Optional<CityEntity> city = cityService.findByNameAndCountry(cityRequestDto.getName(), country.get());
+		if(city.isPresent()) {
+			throw new AlreadyExistException("A city already exists with name : '"+cityRequestDto.getName()+"' for country : '"+cityRequestDto.getCountryname()+"'");
+		}
+
+		//mapping cityRequestDto to cityEntity
+		CityEntity cityEntity = cityDtoMapper.dtoToEntity(cityRequestDto);
+		cityEntity.setCountry(country.get());
+
+		//calling service creation including geocoding
+		cityEntity = cityService.create(cityEntity);
+		return ResponseEntity.status(HttpStatus.CREATED).body(cityDtoMapper.entityToDto(cityEntity));
 	}
 
 

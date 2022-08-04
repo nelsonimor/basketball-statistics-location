@@ -2,6 +2,7 @@ package fr.bsm.location.infrastructure.repository.city;
 
 
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Repository;
@@ -11,10 +12,12 @@ import fr.bsm.location.domain.common.entity.city.CityEntity;
 import fr.bsm.location.domain.common.exception.GeocodingException;
 import fr.bsm.location.domain.repository.city.GeocodingRepository;
 import fr.bsm.location.infrastructure.config.GeocodingProperties;
+import fr.bsm.location.infrastructure.config.SpringProfileConstants;
 import fr.bsm.location.infrastructure.data.geocoding.AddressDto;
 import fr.bsm.location.infrastructure.data.geocoding.AddressResultDto;
 
 @Repository
+@Profile(SpringProfileConstants.UNMOCK_GEOCODING)
 public class GeocodingRepositoryImpl implements GeocodingRepository {
 	
 	private static final String NA = "Not available";

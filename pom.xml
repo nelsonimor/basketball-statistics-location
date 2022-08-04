@@ -342,7 +342,7 @@
 			<id>local</id>
 			<properties>
 				<!-- Default Spring profiles based on Maven profiles -->
-				<spring.profiles.active>local</spring.profiles.active>
+				<spring.profiles.active>local${profile.mock}</spring.profiles.active>
 			</properties>
 		</profile>
 
@@ -367,6 +367,20 @@
 			<properties>
 				<!-- Default Spring profiles based on Maven profiles -->
 				<spring.profiles.active>prod</spring.profiles.active>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>mock</id>
+			<properties>
+				<profile.mock>,mock-geocoding</profile.mock>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>mock-geocoding</id>
+			<properties>
+				<profile.mock>,mock-geocoding</profile.mock>
 			</properties>
 		</profile>
 
