@@ -1,3 +1,7 @@
+logging:
+  level:
+    fr.bsm.location: ERROR
+
 spring:
   datasource:
     url: jdbc:mysql://mysql-nelsonimor.alwaysdata.net/nelsonimor_bsm_location_dev?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&enabledTLSProtocols=TLSv1.2

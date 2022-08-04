@@ -26,9 +26,11 @@ import fr.bsm.location.exposition.dto.CityDto;
 import fr.bsm.location.exposition.dto.CityQueryDto;
 import fr.bsm.location.exposition.dto.CityRequestDto;
 import fr.bsm.location.exposition.util.CityDtoMapper;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Validated
+@Slf4j
 public class CityResource {
 
 	private final CityService cityService;
@@ -78,6 +80,7 @@ public class CityResource {
 		//check if country really exist
 		Optional<CountryEntity> country = countryService.findByName(cityRequestDto.getCountryname());
 		if(!country.isPresent()) {
+			log.error("No country found for countryName : {}",cityRequestDto.getName());
 			throw new EntityNotFoundException("No country found for countryName : "+cityRequestDto.getCountryname());
 		}
 

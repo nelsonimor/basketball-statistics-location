@@ -1,0 +1,76 @@
+2022-08-04 15:29:38,862 INFO org.hibernate.validator.internal.util.Version [background-preinit] HV000001: Hibernate Validator 6.2.0.Final
+2022-08-04 15:29:38,862 INFO org.springframework.boot.StartupInfoLogger [main] Starting BasketballStatisticsLocationApplication using Java 11.0.15 on DESKTOP-6VR2MS0 with PID 4608 (C:\Users\Moi\Documents\Dev\experience\basketball-statistics-location\basketball-statistics-location\basketball-statistics-location-exposition\target\classes started by Moi in C:\Users\Moi\Documents\Dev\experience\basketball-statistics-location\basketball-statistics-location\basketball-statistics-location-exposition)
+2022-08-04 15:29:38,871 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.5.8, Spring v5.3.14
+2022-08-04 15:29:38,871 INFO org.springframework.boot.SpringApplication [main] The following profiles are active: local,mock-geocoding
+2022-08-04 15:29:39,449 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-08-04 15:29:39,686 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 228 ms. Found 4 JPA repository interfaces.
+2022-08-04 15:29:40,115 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 8082 (http)
+2022-08-04 15:29:40,124 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8082"]
+2022-08-04 15:29:40,124 INFO org.apache.juli.logging.DirectJDKLog [main] Starting service [Tomcat]
+2022-08-04 15:29:40,124 INFO org.apache.juli.logging.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/9.0.56]
+2022-08-04 15:29:40,216 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2022-08-04 15:29:40,216 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 1314 ms
+2022-08-04 15:29:40,243 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
+2022-08-04 15:29:40,448 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Start completed.
+2022-08-04 15:29:40,455 INFO org.springframework.boot.autoconfigure.h2.H2ConsoleAutoConfiguration [main] H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:5120aacc-e913-4f5b-8cc7-5a40e2153b13'
+2022-08-04 15:29:40,574 INFO org.hibernate.jpa.internal.util.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-08-04 15:29:40,638 INFO org.hibernate.Version [main] HHH000412: Hibernate ORM core version 5.4.33
+2022-08-04 15:29:40,804 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [main] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-08-04 15:29:40,968 INFO org.hibernate.dialect.Dialect [main] HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2022-08-04 15:29:41,754 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-08-04 15:29:41,764 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-08-04 15:29:42,292 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-08-04 15:29:42,750 INFO org.apache.juli.logging.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8082"]
+2022-08-04 15:29:42,766 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat started on port(s): 8082 (http) with context path ''
+2022-08-04 15:29:42,774 INFO org.springframework.boot.StartupInfoLogger [main] Started BasketballStatisticsLocationApplication in 4.304 seconds (JVM running for 4.862)
+2022-08-04 15:29:42,779 INFO fr.bsm.location.BasketballStatisticsLocationApplication [main] 
+----------------------------------------------------------
+	Application 'Basketball-Statistics-Location' is running! Access URLs:
+	Local: 		http://localhost:8082/swagger-ui/
+	External: 	http://192.168.1.37:8082/swagger-ui/
+	Profile(s): 	[local, mock-geocoding]
+----------------------------------------------------------
+2022-08-04 15:30:11,156 INFO org.springframework.boot.admin.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin [RMI TCP Connection(10)-127.0.0.1] Application shutdown requested.
+2022-08-04 15:30:11,198 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [RMI TCP Connection(10)-127.0.0.1] Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-08-04 15:30:11,200 INFO com.zaxxer.hikari.HikariDataSource [RMI TCP Connection(10)-127.0.0.1] HikariPool-1 - Shutdown initiated...
+2022-08-04 15:30:11,204 INFO com.zaxxer.hikari.HikariDataSource [RMI TCP Connection(10)-127.0.0.1] HikariPool-1 - Shutdown completed.
+2022-08-04 15:30:18,039 INFO org.hibernate.validator.internal.util.Version [background-preinit] HV000001: Hibernate Validator 6.2.0.Final
+2022-08-04 15:30:18,039 INFO org.springframework.boot.StartupInfoLogger [main] Starting BasketballStatisticsLocationApplication using Java 11.0.15 on DESKTOP-6VR2MS0 with PID 10696 (C:\Users\Moi\Documents\Dev\experience\basketball-statistics-location\basketball-statistics-location\basketball-statistics-location-exposition\target\classes started by Moi in C:\Users\Moi\Documents\Dev\experience\basketball-statistics-location\basketball-statistics-location\basketball-statistics-location-exposition)
+2022-08-04 15:30:18,042 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.5.8, Spring v5.3.14
+2022-08-04 15:30:18,042 INFO org.springframework.boot.SpringApplication [main] The following profiles are active: local,mock-geocoding
+2022-08-04 15:30:18,612 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-08-04 15:30:18,839 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 219 ms. Found 4 JPA repository interfaces.
+2022-08-04 15:30:19,261 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 8082 (http)
+2022-08-04 15:30:19,270 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8082"]
+2022-08-04 15:30:19,271 INFO org.apache.juli.logging.DirectJDKLog [main] Starting service [Tomcat]
+2022-08-04 15:30:19,271 INFO org.apache.juli.logging.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/9.0.56]
+2022-08-04 15:30:19,354 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2022-08-04 15:30:19,354 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 1277 ms
+2022-08-04 15:30:19,382 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
+2022-08-04 15:30:19,581 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Start completed.
+2022-08-04 15:30:19,589 INFO org.springframework.boot.autoconfigure.h2.H2ConsoleAutoConfiguration [main] H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:916854da-b84c-4c0f-ba88-369533d88558'
+2022-08-04 15:30:19,705 INFO org.hibernate.jpa.internal.util.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-08-04 15:30:19,770 INFO org.hibernate.Version [main] HHH000412: Hibernate ORM core version 5.4.33
+2022-08-04 15:30:19,953 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [main] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-08-04 15:30:20,126 INFO org.hibernate.dialect.Dialect [main] HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2022-08-04 15:30:20,941 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-08-04 15:30:20,952 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-08-04 15:30:21,498 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-08-04 15:30:21,958 INFO org.apache.juli.logging.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8082"]
+2022-08-04 15:30:21,975 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat started on port(s): 8082 (http) with context path ''
+2022-08-04 15:30:21,983 INFO org.springframework.boot.StartupInfoLogger [main] Started BasketballStatisticsLocationApplication in 4.328 seconds (JVM running for 4.905)
+2022-08-04 15:30:21,989 INFO fr.bsm.location.BasketballStatisticsLocationApplication [main] 
+----------------------------------------------------------
+	Application 'Basketball-Statistics-Location' is running! Access URLs:
+	Local: 		http://localhost:8082/swagger-ui/
+	External: 	http://192.168.1.37:8082/swagger-ui/
+	Profile(s): 	[local, mock-geocoding]
+----------------------------------------------------------
+2022-08-04 15:30:38,327 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8082-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-04 15:30:38,327 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8082-exec-1] Initializing Servlet 'dispatcherServlet'
+2022-08-04 15:30:38,329 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8082-exec-1] Completed initialization in 1 ms
+2022-08-04 15:30:38,608 ERROR fr.bsm.location.exposition.api.CityResource [http-nio-8082-exec-1] No country found for countryName : Steene
+2022-08-04 15:30:50,426 INFO org.springframework.boot.admin.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin [RMI TCP Connection(10)-127.0.0.1] Application shutdown requested.
+2022-08-04 15:30:50,467 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [RMI TCP Connection(10)-127.0.0.1] Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-08-04 15:30:50,470 INFO com.zaxxer.hikari.HikariDataSource [RMI TCP Connection(10)-127.0.0.1] HikariPool-1 - Shutdown initiated...
+2022-08-04 15:30:50,473 INFO com.zaxxer.hikari.HikariDataSource [RMI TCP Connection(10)-127.0.0.1] HikariPool-1 - Shutdown completed.

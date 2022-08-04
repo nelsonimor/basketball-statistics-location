@@ -1,5 +1,9 @@
 server:
   port: 8082
+  
+logging:
+  level:
+    fr.bsm.location: DEBUG
 
 spring:
   application:

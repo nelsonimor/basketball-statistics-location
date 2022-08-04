@@ -1,0 +1,65 @@
+<configuration scan="true">
+  <springProperty name="app-name"
+    source="spring.application.name"/>
+  <springProperty name="app-timezone"
+    source="application.timezone"/>
+  <springProperty name="app-orgEntity"
+    source="application.orgEntity"/>
+  <springProperty name="app-version"
+    source="application.version"/>
+  <springProperty name="app-environment"
+    source="application.environment"/>
+  <springProperty name="app-type"
+    source="application.type"/>
+  <springProperty name="app-retention"
+    source="application.retention"/>
+  <springProperty name="app-token"
+    source="application.token"/>
+
+  <property name="patternPlainText"
+    value="%date{yyyy-MM-dd HH:mm:ss.SSSXXX} | %-5level | %X{IP} | %X{HostName} | ${app-name} |
+      %X{X-B3-TraceId:-} | %X{X-B3-SpanId:-} | %X{UserId} | %X{Marker} | %c{36}:%line | %msg%n"/>
+
+  <appender name="STDOUT"
+    class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>${patternPlainText}</pattern>
+    </encoder>
+  </appender>
+
+  <springProfile name="dev">
+    <property name="LOGS" value="/home/lucdian/logs/" />
+    <appender name="STDOUT"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS}/bsm-location.log</file>
+        <encoder
+            class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d %p %C{1.} [%t] %m%n</Pattern>
+        </encoder>
+
+        <rollingPolicy
+            class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily and when the file reaches 10 MegaBytes -->
+            <fileNamePattern>${LOGS}/archived/bsm-location-%d{yyyy-MM-dd}.%i.log
+            </fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+  </springProfile>
+
+  <root level="ERROR">
+    <appender-ref ref="STDOUT"/>
+  </root>
+
+  <!-- https://logback.qos.ch/manual/configuration.html#shutdownHook and https://jira.qos.ch/browse/LOGBACK-1090 -->
+  <shutdownHook
+    class="ch.qos.logback.core.hook.DelayingShutdownHook"/>
+
+  <contextListener
+    class="ch.qos.logback.classic.jul.LevelChangePropagator">
+    <resetJUL>true</resetJUL>
+  </contextListener>
+</configuration>
