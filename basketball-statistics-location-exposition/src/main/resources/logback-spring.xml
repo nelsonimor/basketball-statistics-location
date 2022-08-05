@@ -27,7 +27,7 @@
     </encoder>
   </appender>
 
-  <springProfile name="dev">
+  <springProfile name="dev2">
     <property name="LOGS" value="/home/lucdian/logs/" />
     <appender name="STDOUT"
         class="ch.qos.logback.core.rolling.RollingFileAppender">
