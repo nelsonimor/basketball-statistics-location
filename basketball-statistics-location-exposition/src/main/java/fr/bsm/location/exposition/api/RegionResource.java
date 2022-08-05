@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import fr.bsm.location.application.region.RegionService;
 import fr.bsm.location.domain.common.entity.region.RegionsEntity;
 import fr.bsm.location.domain.common.exception.EntityNotFoundException;
+import fr.bsm.location.domain.common.exception.ErrorCode;
 import fr.bsm.location.exposition.dto.RegionDto;
 import fr.bsm.location.exposition.dto.RegionsDto;
 import fr.bsm.location.exposition.util.RegionDtoMapper;
@@ -46,7 +47,7 @@ public class RegionResource {
 				.map(regionDtoMapper::entityToDto)
 				.map(ResponseEntity::ok)
 				.orElseThrow(() -> new EntityNotFoundException(
-						"The given identifier is unknown by the system : " + regionId));
+						"["+ErrorCode.GET_REGION_UNKNOWN_BY_ID+"] The given identifier is unknown by the system : " + regionId));
 	}
 
 }

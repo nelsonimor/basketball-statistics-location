@@ -21,6 +21,7 @@ import fr.bsm.location.domain.common.entity.city.CityEntity;
 import fr.bsm.location.domain.common.entity.country.CountryEntity;
 import fr.bsm.location.domain.common.exception.AlreadyExistException;
 import fr.bsm.location.domain.common.exception.EntityNotFoundException;
+import fr.bsm.location.domain.common.exception.ErrorCode;
 import fr.bsm.location.exposition.dto.CitiesDto;
 import fr.bsm.location.exposition.dto.CityDto;
 import fr.bsm.location.exposition.dto.CityQueryDto;
@@ -49,7 +50,7 @@ public class CityResource {
 				.map(cityDtoMapper::entityToDto)
 				.map(ResponseEntity::ok)
 				.orElseThrow(() -> new EntityNotFoundException(
-						"The given identifier is unknown by the system : " + cityId));
+						"["+ErrorCode.GET_CITY_UNKNOWN_BY_ID+"] The given identifier is unknown by the system : " + cityId));
 	}
 
 
@@ -58,7 +59,7 @@ public class CityResource {
 		Optional<CityEntity> cityEntity = cityService.findById(cityId);
 		if(cityEntity.isEmpty()) {
 			log.error("No city found with id : {}",cityEntity);
-			throw new EntityNotFoundException("No city found for id : "+cityId);
+			throw new EntityNotFoundException("["+ErrorCode.DELETE_CITY_UNKNOWN_BY_ID+"] No city found for id : "+cityId);
 		}
 
 		cityService.delete(cityId);
@@ -83,14 +84,14 @@ public class CityResource {
 		Optional<CountryEntity> country = countryService.findByName(cityRequestDto.getCountryname());
 		if(!country.isPresent()) {
 			log.error("No country found for countryName : {}",cityRequestDto.getName());
-			throw new EntityNotFoundException("No country found for countryName : "+cityRequestDto.getCountryname());
+			throw new EntityNotFoundException("["+ErrorCode.ADD_CITY_COUNTRY_NOT_FOUND+"] No country found for countryName : "+cityRequestDto.getCountryname());
 		}
 
 		//check if city does not already exist
 		Optional<CityEntity> city = cityService.findByNameAndCountry(cityRequestDto.getName(), country.get());
 		if(city.isPresent()) {
 			log.error("A city already exists with name : '{}' for country : '{}'",cityRequestDto.getName(), cityRequestDto.getCountryname());
-			throw new AlreadyExistException("A city already exists with name : '"+cityRequestDto.getName()+"' for country : '"+cityRequestDto.getCountryname()+"'");
+			throw new AlreadyExistException("["+ErrorCode.ADD_CITY_ALREADY_EXISTS+"] A city already exists with name : '"+cityRequestDto.getName()+"' for country : '"+cityRequestDto.getCountryname()+"'");
 		}
 
 		//mapping cityRequestDto to cityEntity

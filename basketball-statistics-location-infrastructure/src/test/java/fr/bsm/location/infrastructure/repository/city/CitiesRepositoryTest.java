@@ -122,7 +122,7 @@ class CitiesRepositoryTest {
 		
 		CitiesEntity result = repository.findAll(Optional.empty());
 		assertThat(result).isNotNull();
-		assertThat(result.getItems().size()).isZero();
+		assertThat(result.getItems()).isEmpty();
 	}
 
 

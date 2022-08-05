@@ -8,10 +8,14 @@ import org.springframework.transaction.annotation.Transactional;
 import fr.bsm.location.domain.common.entity.city.CitiesEntity;
 import fr.bsm.location.domain.common.entity.city.CityEntity;
 import fr.bsm.location.domain.common.entity.country.CountryEntity;
+import fr.bsm.location.domain.common.exception.ErrorCode;
+import fr.bsm.location.domain.common.exception.GeocodingException;
 import fr.bsm.location.domain.repository.city.CityRepository;
 import fr.bsm.location.domain.repository.city.GeocodingRepository;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class CityServiceImpl implements CityService {
 	
 	private final CityRepository cityRepository;
@@ -29,8 +33,14 @@ public class CityServiceImpl implements CityService {
 
 	@Override
 	public CityEntity create(CityEntity cityEntity) {
-		cityEntity = geocodingRepository.geocode(cityEntity);
-		return cityRepository.create(cityEntity);
+		Optional<CityEntity> cityGeocoded = geocodingRepository.geocode(cityEntity);
+		if(cityGeocoded.isEmpty()) {
+			log.error("No geocoding result for city : '{}' and country : '{}'",cityEntity.getName(),cityEntity.getCountry().getName());
+			throw new GeocodingException("["+ErrorCode.ADD_CITY_NO_GEOCODING+"] No geocoding result for city : '"+cityEntity.getName()+"' and country : '"+cityEntity.getCountry().getName()+"'");
+		}
+		else {
+			return cityRepository.create(cityGeocoded.get());
+		}
 	}
 
 	@Override

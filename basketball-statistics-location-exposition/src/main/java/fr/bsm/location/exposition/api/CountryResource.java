@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import fr.bsm.location.application.country.CountryService;
 import fr.bsm.location.domain.common.entity.country.CountriesEntity;
 import fr.bsm.location.domain.common.exception.EntityNotFoundException;
+import fr.bsm.location.domain.common.exception.ErrorCode;
 import fr.bsm.location.exposition.dto.CountriesDto;
 import fr.bsm.location.exposition.dto.CountryDto;
 import fr.bsm.location.exposition.dto.CountryRequestDto;
@@ -52,7 +53,7 @@ public class CountryResource {
 				.map(countryDtoMapper::entityToDto)
 				.map(ResponseEntity::ok)
 				.orElseThrow(() -> new EntityNotFoundException(
-						"The given identifier is unknown by the system : " + countryId));
+						"["+ErrorCode.GET_COUNTRY_UNKNOWN_BY_ID+"] The given identifier is unknown by the system : " + countryId));
 	}
 	
 	@GetMapping(value = "/countries/name/{countryName}")
@@ -61,7 +62,7 @@ public class CountryResource {
 				.map(countryDtoMapper::entityToDto)
 				.map(ResponseEntity::ok)
 				.orElseThrow(() -> new EntityNotFoundException(
-						"The given countryName is unknown by the system : " + countryName));
+						"["+ErrorCode.GET_COUNTRY_UNKNOWN_BY_NAME+"] The given countryName is unknown by the system : " + countryName));
 	}
 	
 	@GetMapping(value = "/countries/codeiso2/{countryCodeiso2}")
@@ -70,7 +71,7 @@ public class CountryResource {
 				.map(countryDtoMapper::entityToDto)
 				.map(ResponseEntity::ok)
 				.orElseThrow(() -> new EntityNotFoundException(
-						"The given countryCodeiso2 is unknown by the system : " + countryCodeiso2));
+						"["+ErrorCode.GET_COUNTRY_UNKNOWN_BY_ISO2+"] The given countryCodeiso2 is unknown by the system : " + countryCodeiso2));
 	}
 	
 	@GetMapping(value = "/countries/codeiso3/{countryCodeiso3}")
@@ -79,7 +80,7 @@ public class CountryResource {
 				.map(countryDtoMapper::entityToDto)
 				.map(ResponseEntity::ok)
 				.orElseThrow(() -> new EntityNotFoundException(
-						"The given countryCodeiso3 is unknown by the system : " + countryCodeiso3));
+						"["+ErrorCode.GET_COUNTRY_UNKNOWN_BY_ISO3+"] The given countryCodeiso3 is unknown by the system : " + countryCodeiso3));
 	}
 
 }

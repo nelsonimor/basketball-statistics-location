@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import fr.bsm.location.application.continent.ContinentService;
 import fr.bsm.location.domain.common.entity.continent.ContinentsEntity;
 import fr.bsm.location.domain.common.exception.EntityNotFoundException;
+import fr.bsm.location.domain.common.exception.ErrorCode;
 import fr.bsm.location.exposition.dto.ContinentDto;
 import fr.bsm.location.exposition.dto.ContinentsDto;
 import fr.bsm.location.exposition.util.ContinentDtoMapper;
@@ -46,7 +47,7 @@ public class ContinentResource {
 				.map(continentDtoMapper::entityToDto)
 				.map(ResponseEntity::ok)
 				.orElseThrow(() -> new EntityNotFoundException(
-						"The given identifier is unknown by the system : " + continentId));
+						"["+ErrorCode.GET_CONTINENT_UNKNOWN_BY_ID+"] The given identifier is unknown by the system : " + continentId));
 	}
 
 }

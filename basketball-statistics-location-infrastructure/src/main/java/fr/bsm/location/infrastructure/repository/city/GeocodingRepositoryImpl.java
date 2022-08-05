@@ -2,6 +2,8 @@ package fr.bsm.location.infrastructure.repository.city;
 
 
 
+import java.util.Optional;
+
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -9,17 +11,14 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import fr.bsm.location.domain.common.entity.city.CityEntity;
-import fr.bsm.location.domain.common.exception.GeocodingException;
 import fr.bsm.location.domain.repository.city.GeocodingRepository;
 import fr.bsm.location.infrastructure.config.GeocodingProperties;
 import fr.bsm.location.infrastructure.config.SpringProfileConstants;
 import fr.bsm.location.infrastructure.data.geocoding.AddressDto;
 import fr.bsm.location.infrastructure.data.geocoding.AddressResultDto;
-import lombok.extern.slf4j.Slf4j;
 
 @Repository
 @Profile(SpringProfileConstants.UNMOCK_GEOCODING)
-@Slf4j
 public class GeocodingRepositoryImpl implements GeocodingRepository {
 	
 	private static final String NA = "Not available";
@@ -31,7 +30,7 @@ public class GeocodingRepositoryImpl implements GeocodingRepository {
 	}
 
 	@Override
-	public CityEntity geocode(CityEntity cityEntity) {
+	public Optional<CityEntity> geocode(CityEntity cityEntity) {
 		AddressResultDto[] results = WebClient.builder()
 				.baseUrl(geocodingProperties.getUrl())
 				.defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
@@ -50,8 +49,7 @@ public class GeocodingRepositoryImpl implements GeocodingRepository {
 
 		
 		if(results == null || results.length == 0) {
-			log.debug("No geocoding result for city : '{}' and country : '{}'",cityEntity.getName(),cityEntity.getCountry().getName());
-			throw new GeocodingException("No geocoding result for city : '"+cityEntity.getName()+"' and country : '"+cityEntity.getCountry().getName()+"'");
+			return Optional.empty();
 		}
 		
 		AddressResultDto result = results[0];
@@ -59,7 +57,7 @@ public class GeocodingRepositoryImpl implements GeocodingRepository {
 		cityEntity.setLongitude(result.getLon());
 		performState(cityEntity, result.getAddress());
 		performCounty(cityEntity, result.getAddress());
-		return cityEntity;
+		return Optional.of(cityEntity);
 	}
 	
 	

@@ -3,6 +3,7 @@ package fr.bsm.location.infrastructure.repository.city;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -70,14 +71,14 @@ class GeocodingRespositoryTest {
 		MockResponse response = new MockResponse().addHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).setBody(responseBody);
 		server.enqueue(response);
 
-		CityEntity cityEntityGeocoded = geocodingRepository.geocode(InfrastructureDataUtil.getEntityCityGandWithoutGeocoding());
+		Optional<CityEntity> cityEntityGeocoded = geocodingRepository.geocode(InfrastructureDataUtil.getEntityCityGandWithoutGeocoding());
 
 		assertThat(cityEntityGeocoded).isNotNull();
-		assertThat(cityEntityGeocoded.getName()).isEqualTo(InfrastructureDataUtil.CITY_GAND_NAME);
-		assertThat(cityEntityGeocoded.getLongitude()).isEqualTo(InfrastructureDataUtil.CITY_GAND_LONGITUDE);
-		assertThat(cityEntityGeocoded.getLatitude()).isEqualTo(InfrastructureDataUtil.CITY_GAND_LATITUDE);
-		assertThat(cityEntityGeocoded.getState()).isEqualTo(InfrastructureDataUtil.CITY_GAND_STATE);
-		assertThat(cityEntityGeocoded.getCounty()).isEqualTo(InfrastructureDataUtil.CITY_GAND_COUNTY);
+		assertThat(cityEntityGeocoded.get().getName()).isEqualTo(InfrastructureDataUtil.CITY_GAND_NAME);
+		assertThat(cityEntityGeocoded.get().getLongitude()).isEqualTo(InfrastructureDataUtil.CITY_GAND_LONGITUDE);
+		assertThat(cityEntityGeocoded.get().getLatitude()).isEqualTo(InfrastructureDataUtil.CITY_GAND_LATITUDE);
+		assertThat(cityEntityGeocoded.get().getState()).isEqualTo(InfrastructureDataUtil.CITY_GAND_STATE);
+		assertThat(cityEntityGeocoded.get().getCounty()).isEqualTo(InfrastructureDataUtil.CITY_GAND_COUNTY);
 	}
 
 }

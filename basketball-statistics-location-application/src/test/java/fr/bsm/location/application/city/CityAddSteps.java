@@ -37,6 +37,7 @@ public class CityAddSteps {
 	public void a_list_of_one_city(List<CityEntity> entities) {
 		holder.addParam(entities);
 	}
+	
 	@When("We add a city with name {string} and county {string}")
 	public void we_add_a_city_with_name_and_county(String cityName, String cityCounty) {
 		List<CityEntity> entities = holder.getParam();
@@ -45,8 +46,8 @@ public class CityAddSteps {
 		entityToAdd.setName(cityName);
 		entityToAdd.setCounty(cityCounty);
 
-		
 		when(cityRepository.create(entityToAdd)).thenReturn(entityToAdd);
+		when(geocodingRepository.geocode(entityToAdd)).thenReturn(Optional.of(entityToAdd));
 	    entities.add(cityService.create(entityToAdd));
 	    holder.addResult(Optional.of(entities));
 	}
