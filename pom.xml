@@ -20,7 +20,7 @@
 	</modules>
 
 	<properties>
-		<VERSION_NUMBER>0.0.2-SNAPSHOT</VERSION_NUMBER>
+		<VERSION_NUMBER>0.0.3-SNAPSHOT</VERSION_NUMBER>
 		<revision>${VERSION_NUMBER}</revision>
 		<java.version>11</java.version>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
