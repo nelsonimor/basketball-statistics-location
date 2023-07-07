@@ -1,0 +1,11 @@
+*.class
+*.project
+*.html
+*.classpath
+*.jar
+*/target/*
+*.settingss
+*jacoco*
+*org.eclipse*
+*.factorypath*
+*org.spring*
