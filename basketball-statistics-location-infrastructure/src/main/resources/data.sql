@@ -298,3 +298,8 @@ INSERT INTO `t_country`(id,name,creation_date,fullname,codeiso2,codeiso3,number,
 INSERT INTO `t_country`(id,name,creation_date,fullname,codeiso2,codeiso3,number,fk_continent_id,fk_region_id) VALUES ('223','Yemen',CURRENT_TIMESTAMP,'Yemen','YE','YEM','887',(SELECT id FROM t_continent WHERE code = 'AS'),(SELECT id FROM t_region WHERE name = 'Arabian Peninsula, Middle East'));
 INSERT INTO `t_country`(id,name,creation_date,fullname,codeiso2,codeiso3,number,fk_continent_id,fk_region_id) VALUES ('224','Zambia',CURRENT_TIMESTAMP,'Republic of Zambia','ZM','ZMB','894',(SELECT id FROM t_continent WHERE code = 'AF'),(SELECT id FROM t_region WHERE name = 'Eastern Africa'));
 INSERT INTO `t_country`(id,name,creation_date,fullname,codeiso2,codeiso3,number,fk_continent_id,fk_region_id) VALUES ('225','Zimbabwe',CURRENT_TIMESTAMP,'Republic of Zimbabwe','ZW','ZWE','716',(SELECT id FROM t_continent WHERE code = 'AF'),(SELECT id FROM t_region WHERE name = 'Eastern Africa'));
+
+-- ----------------------------
+-- Records of cities (1)
+-- ----------------------------
+INSERT INTO `t_city`(id,creation_date,county,latitude,longitude,name,state,fk_country_id) VALUES ('1',CURRENT_TIMESTAMP,'Paris',48.8534951,2.3483915,'Paris','Ile-de-France',(SELECT id FROM t_country WHERE name = 'France'));
