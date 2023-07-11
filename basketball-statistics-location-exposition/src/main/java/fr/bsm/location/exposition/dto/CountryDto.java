@@ -39,6 +39,9 @@ public class CountryDto {
   private String number;
   
   @NotNull
+  private String flagurl;
+  
+  @NotNull
   private ContinentDto continent;
   
   @NotNull
