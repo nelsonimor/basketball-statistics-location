@@ -10,5 +10,6 @@ import lombok.Setter;
 public class CityQueryDto {
 	
 	private Integer countryId;
+	private String cityName;
 	
 }

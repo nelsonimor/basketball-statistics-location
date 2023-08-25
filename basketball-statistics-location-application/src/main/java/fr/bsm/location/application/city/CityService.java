@@ -11,7 +11,7 @@ public interface CityService {
 
 	Optional<CityEntity> findById(Integer id);
 
-	CitiesEntity findAll(Optional<Integer> countryId);
+	CitiesEntity findAll(Optional<Integer> countryId,Optional<String> cityName);
 
 	Optional<CityEntity> findByNameAndCountry(String name,CountryEntity countryEntity);
 

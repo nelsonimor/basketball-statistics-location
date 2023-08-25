@@ -12,7 +12,7 @@ public interface CityRepository {
 	
 	void delete(Integer id);
 	
-	CitiesEntity findAll(Optional<Integer> countryId);
+	CitiesEntity findAll(Optional<Integer> countryId,Optional<String> cityName);
 	
 	CityEntity create(CityEntity cityEntity);
 	

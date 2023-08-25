@@ -87,7 +87,7 @@ class CityResourceTest {
 		CitiesDto citiesDto = new CitiesDto();
 		citiesDto.setItems(Arrays.asList(ExpositionDataUtil.getDtoCityBrussels()));
 
-		when(cityService.findAll(Optional.empty())).thenReturn(citiesEntity);
+		when(cityService.findAll(Optional.empty(),Optional.empty())).thenReturn(citiesEntity);
 		when(cityMapperDto.entityToCitiesDto(citiesEntity)).thenReturn(citiesDto);
 
 		performSuccessFindAll("/cities");
@@ -102,7 +102,7 @@ class CityResourceTest {
 		CitiesDto citiesDto = new CitiesDto();
 		citiesDto.setItems(Arrays.asList(ExpositionDataUtil.getDtoCityBrussels()));
 
-		when(cityService.findAll(Optional.of(ExpositionDataUtil.COUNTRY_BELGIUM_ID))).thenReturn(citiesEntity);
+		when(cityService.findAll(Optional.of(ExpositionDataUtil.COUNTRY_BELGIUM_ID),Optional.empty())).thenReturn(citiesEntity);
 		when(cityMapperDto.entityToCitiesDto(citiesEntity)).thenReturn(citiesDto);
 
 		performSuccessFindAll("/cities?countryId="+ExpositionDataUtil.COUNTRY_BELGIUM_ID);
@@ -209,7 +209,7 @@ class CityResourceTest {
 		CitiesDto citiesDto = new CitiesDto();
 		citiesDto.setItems(new ArrayList<CityDto>());
 
-		when(cityService.findAll(Optional.empty())).thenReturn(citiesEntity);
+		when(cityService.findAll(Optional.empty(),Optional.empty())).thenReturn(citiesEntity);
 		when(cityMapperDto.entityToCitiesDto(citiesEntity)).thenReturn(citiesDto);
 
 		restMockMvc.perform(get("/cities")

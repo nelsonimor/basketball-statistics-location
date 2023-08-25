@@ -27,8 +27,8 @@ public class CityServiceImpl implements CityService {
 	}
 
 	@Override
-	public CitiesEntity findAll(Optional<Integer> countryId) {
-		return cityRepository.findAll(countryId);
+	public CitiesEntity findAll(Optional<Integer> countryId,Optional<String> cityName) {
+		return cityRepository.findAll(countryId,cityName);
 	}
 
 	@Override

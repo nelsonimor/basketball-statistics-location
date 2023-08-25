@@ -39,9 +39,9 @@ public class CityFindAllSteps {
 	}
 	@When("We get all cities")
 	public void we_get_all_cities() {
-		when(cityRepository.findAll(Optional.empty()))
+		when(cityRepository.findAll(Optional.empty(),Optional.empty()))
 		.thenReturn(CitiesEntity.builder().items(holder.getParam()).build());
-		holder.addResult(Optional.of(cityService.findAll(Optional.empty())));
+		holder.addResult(Optional.of(cityService.findAll(Optional.empty(),Optional.empty())));
 	}
 	@Then("We return {int} city with id {string} and name {string} and county {string}")
 	public void we_return_city_with_id_and_name_and_county(Integer expectedSize, String cityId, String cityName, String cityCounty) {

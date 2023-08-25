@@ -35,12 +35,27 @@ public class CityRepositoryImpl implements CityRepository {
 		this.countryJpaRepository = countryJpaRepository;
 		this.countryEntityMapper = countryEntityMapper;
 	}
+	
+	private Optional<CountryData> getCountry(Integer countryId) {
+		Optional<CountryData> countryData = countryJpaRepository.findById(countryId);
+		return countryData;
+	}
 
 
 	@Override
-	public CitiesEntity findAll(Optional<Integer> countryId) {
-		if(countryId.isPresent()) {
-			Optional<CountryData> countryData = countryJpaRepository.findById(countryId.get());
+	public CitiesEntity findAll(Optional<Integer> countryId,Optional<String> cityName) {
+		if(countryId.isPresent() && cityName.isPresent()) {
+			Optional<CountryData> countryData = getCountry(countryId.get());
+			if(!countryData.isPresent()) {
+				log.error("No country found for id : {}",countryId.get());
+				return null;
+			}
+			else {
+				return CitiesEntity.builder().items(cityJpaRepository.findByNameAndCountry(cityName.get(), countryData.get()).stream().map(cityEntityMapper::dataToEntity).collect(Collectors.toList())).build();
+			}
+		}
+		else if(countryId.isPresent() && !cityName.isPresent()) {
+			Optional<CountryData> countryData = getCountry(countryId.get());
 			if(countryData.isPresent()) {
 				return CitiesEntity.builder().items(cityJpaRepository.findByCountry(countryData.get()).stream().map(cityEntityMapper::dataToEntity).collect(Collectors.toList())).build();
 			}
@@ -48,8 +63,11 @@ public class CityRepositoryImpl implements CityRepository {
 				log.error("No country found for id : {}",countryId.get());
 				return null;
 			}
-
 		}
+		else if(!countryId.isPresent() && cityName.isPresent()) {
+			return CitiesEntity.builder().items(cityJpaRepository.findByName(cityName.get()).stream().map(cityEntityMapper::dataToEntity).collect(Collectors.toList())).build();
+		}
+		
 		return CitiesEntity.builder().items(cityJpaRepository.findAll().stream().map(cityEntityMapper::dataToEntity).collect(Collectors.toList())).build();
 	}
 

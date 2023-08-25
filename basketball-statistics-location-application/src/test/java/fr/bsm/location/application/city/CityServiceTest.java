@@ -46,20 +46,20 @@ class CityServiceTest {
 	void testFindAll() {
 		List<CityEntity> entities = Arrays.asList(ApplicationDataUtil.getCityBrussels());
 		CitiesEntity entityToReturn = CitiesEntity.builder().items(entities).build();
-		when(cityRepository.findAll(Optional.empty())).thenReturn(entityToReturn);
-		CitiesEntity result = cityService.findAll(Optional.empty());
+		when(cityRepository.findAll(Optional.empty(),Optional.empty())).thenReturn(entityToReturn);
+		CitiesEntity result = cityService.findAll(Optional.empty(),Optional.empty());
 		assertThat(result.getItems()).hasSize(1);
-		verify(cityRepository).findAll(Optional.empty());
+		verify(cityRepository).findAll(Optional.empty(),Optional.empty());
 	}
 	
 	@Test
 	void testFindByCountry() {
 		List<CityEntity> entities = Arrays.asList(ApplicationDataUtil.getCityBrussels());
 		CitiesEntity entityToReturn = CitiesEntity.builder().items(entities).build();
-		when(cityRepository.findAll(Optional.of(ApplicationDataUtil.COUNTRY_BELGIUM_ID))).thenReturn(entityToReturn);
-		CitiesEntity result = cityService.findAll(Optional.of(ApplicationDataUtil.COUNTRY_BELGIUM_ID));
+		when(cityRepository.findAll(Optional.of(ApplicationDataUtil.COUNTRY_BELGIUM_ID),Optional.empty())).thenReturn(entityToReturn);
+		CitiesEntity result = cityService.findAll(Optional.of(ApplicationDataUtil.COUNTRY_BELGIUM_ID),Optional.empty());
 		assertThat(result.getItems()).hasSize(1);
-		verify(cityRepository).findAll(Optional.of(ApplicationDataUtil.COUNTRY_BELGIUM_ID));
+		verify(cityRepository).findAll(Optional.of(ApplicationDataUtil.COUNTRY_BELGIUM_ID),Optional.empty());
 	}
 	
 	@Test

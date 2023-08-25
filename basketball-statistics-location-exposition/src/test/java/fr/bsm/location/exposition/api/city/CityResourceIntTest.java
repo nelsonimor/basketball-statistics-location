@@ -61,7 +61,7 @@ class CityResourceIntTest {
 	void getAllCitiesSuccess() throws Exception {
 		CitiesEntity citiesEntity = new CitiesEntity();
 		citiesEntity.setItems(Arrays.asList(ExpositionDataUtil.getEntityCityBrussels()));
-		when(cityService.findAll(Optional.empty())).thenReturn(citiesEntity);
+		when(cityService.findAll(Optional.empty(),Optional.empty())).thenReturn(citiesEntity);
 		restMockMvc.perform(get("/cities").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andExpect(content().json(Files.readString(citiesFile.getFile().toPath()),true));
 	}
 
@@ -69,7 +69,7 @@ class CityResourceIntTest {
 	void getCitiesByRegionSuccess() throws Exception {
 		CitiesEntity citiesEntity = new CitiesEntity();
 		citiesEntity.setItems(Arrays.asList(ExpositionDataUtil.getEntityCityBrussels()));
-		when(cityService.findAll(Optional.of(ExpositionDataUtil.COUNTRY_BELGIUM_ID))).thenReturn(citiesEntity);
+		when(cityService.findAll(Optional.of(ExpositionDataUtil.COUNTRY_BELGIUM_ID),Optional.empty())).thenReturn(citiesEntity);
 		restMockMvc.perform(get("/cities?countryId="+ExpositionDataUtil.COUNTRY_BELGIUM_ID).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andExpect(content().json(Files.readString(citiesFile.getFile().toPath()),true));
 	}
 
@@ -77,7 +77,7 @@ class CityResourceIntTest {
 	void getCitiesNoContent() throws Exception {
 		CitiesEntity citiesEntity = new CitiesEntity();
 		citiesEntity.setItems(new ArrayList<>());
-		when(cityService.findAll(Optional.empty())).thenReturn(citiesEntity);
+		when(cityService.findAll(Optional.empty(),Optional.empty())).thenReturn(citiesEntity);
 		restMockMvc.perform(get("/cities").accept(MediaType.APPLICATION_JSON)).andExpect(status().isNoContent());
 	}
 

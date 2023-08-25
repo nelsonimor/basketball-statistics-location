@@ -68,7 +68,7 @@ class CitiesRepositoryTest {
 
 	@Test
 	void testFindAll() {
-		CitiesEntity result = repository.findAll(Optional.empty());
+		CitiesEntity result = repository.findAll(Optional.empty(),Optional.empty());
 		assertThat(result).isNotNull();
 		assertThat(result.getItems()).isNotNull();
 		assertThat(result.getItems()).hasSize(1);
@@ -78,7 +78,7 @@ class CitiesRepositoryTest {
 
 	@Test
 	void testFindByCountry() {
-		CitiesEntity result = repository.findAll(Optional.of(InfrastructureDataUtil.COUNTRY_BELGIUM_ID));
+		CitiesEntity result = repository.findAll(Optional.of(InfrastructureDataUtil.COUNTRY_BELGIUM_ID),Optional.empty());
 		assertThat(result).isNotNull();
 		assertThat(result.getItems()).isNotNull();
 		assertThat(result.getItems()).hasSize(1);
@@ -120,7 +120,7 @@ class CitiesRepositoryTest {
 	void testDeleteCity() {
 		repository.delete(idGenerated);
 		
-		CitiesEntity result = repository.findAll(Optional.empty());
+		CitiesEntity result = repository.findAll(Optional.empty(),Optional.empty());
 		assertThat(result).isNotNull();
 		assertThat(result.getItems()).isEmpty();
 	}

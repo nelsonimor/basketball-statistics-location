@@ -70,7 +70,7 @@ public class CityResource {
 	@GetMapping("/cities")
 	ResponseEntity<CitiesDto> findAll(CityQueryDto cityQueryDto) {
 
-		CitiesEntity citiesEntity = cityService.findAll(Optional.ofNullable(cityQueryDto.getCountryId()));
+		CitiesEntity citiesEntity = cityService.findAll(Optional.ofNullable(cityQueryDto.getCountryId()),Optional.ofNullable(cityQueryDto.getCityName()));
 		if (citiesEntity == null || citiesEntity.getItems()==null || citiesEntity.getItems().isEmpty()) {
 			log.error("No cities found");
 			return ResponseEntity.noContent().build();
