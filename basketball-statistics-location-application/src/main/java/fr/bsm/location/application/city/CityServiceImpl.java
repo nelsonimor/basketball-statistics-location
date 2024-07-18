@@ -36,7 +36,19 @@ public class CityServiceImpl implements CityService {
 		Optional<CityEntity> cityGeocoded = geocodingRepository.geocode(cityEntity);
 		if(cityGeocoded.isEmpty()) {
 			log.error("No geocoding result for city : '{}' and country : '{}'",cityEntity.getName(),cityEntity.getCountry().getName());
-			throw new GeocodingException("["+ErrorCode.ADD_CITY_NO_GEOCODING+"] No geocoding result for city : '"+cityEntity.getName()+"' and country : '"+cityEntity.getCountry().getName()+"'");
+			
+			cityEntity.setState("undefined");
+			cityEntity.setCounty("undefined");
+			cityEntity.setLatitude(0d);
+			cityEntity.setLongitude(0d);
+			
+			
+			
+			return cityRepository.create(cityEntity);
+			
+			
+			
+			//throw new GeocodingException("["+ErrorCode.ADD_CITY_NO_GEOCODING+"] No geocoding result for city : '"+cityEntity.getName()+"' and country : '"+cityEntity.getCountry().getName()+"'");
 		}
 		else {
 			return cityRepository.create(cityGeocoded.get());
