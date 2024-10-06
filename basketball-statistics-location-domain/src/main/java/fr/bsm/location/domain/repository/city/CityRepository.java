@@ -1,5 +1,6 @@
 package fr.bsm.location.domain.repository.city;
 
+import java.util.List;
 import java.util.Optional;
 
 import fr.bsm.location.domain.common.entity.city.CitiesEntity;
@@ -17,6 +18,10 @@ public interface CityRepository {
 	CityEntity create(CityEntity cityEntity);
 	
 	Optional<CityEntity> findByNameAndCountry(String name,CountryEntity countryEntity);
+
+	CitiesEntity findByNames(List<String> cityNames);
+
+	CitiesEntity findByIds(List<Integer> list);
 
 
 }

@@ -17,5 +17,9 @@ public interface CityJpaRepository extends JpaRepository<CityData, Integer> {
 	Optional<CityData> findByNameAndCountry(String name,CountryData country);
 	
 	Optional<CityData> findByName(String name);
+	
+	List<CityData> findByNameIn(List<String> names);
+
+	List<CityData> findByIdIn(List<Integer> list);
 
 }

@@ -1,6 +1,8 @@
 package fr.bsm.location.exposition.api;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.Vector;
 
 import javax.validation.Valid;
 
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.bsm.location.application.city.CityService;
@@ -71,6 +74,37 @@ public class CityResource {
 	ResponseEntity<CitiesDto> findAll(CityQueryDto cityQueryDto) {
 
 		CitiesEntity citiesEntity = cityService.findAll(Optional.ofNullable(cityQueryDto.getCountryId()),Optional.ofNullable(cityQueryDto.getCityName()));
+		if (citiesEntity == null || citiesEntity.getItems()==null || citiesEntity.getItems().isEmpty()) {
+			log.error("No cities found");
+			return ResponseEntity.noContent().build();
+		}
+		return ResponseEntity.ok(cityDtoMapper.entityToCitiesDto(citiesEntity));
+	}
+
+	@GetMapping("/cities/names")
+	ResponseEntity<CitiesDto> findAllByNames(@RequestParam String cityNames) {
+		String[] citiesName = cityNames.split(",");
+		List<String> list = new Vector<String>();
+		for (int i = 0; i < citiesName.length; i++) {
+			list.add(citiesName[i]);
+		}
+		CitiesEntity citiesEntity = cityService.findByNames(list);
+		if (citiesEntity == null || citiesEntity.getItems()==null || citiesEntity.getItems().isEmpty()) {
+			log.error("No cities found");
+			return ResponseEntity.noContent().build();
+		}
+		return ResponseEntity.ok(cityDtoMapper.entityToCitiesDto(citiesEntity));
+	}
+	
+	
+	@GetMapping("/cities/ids")
+	ResponseEntity<CitiesDto> findAllByIds(@RequestParam String cityIds) {
+		String[] citiesId = cityIds.split(",");
+		List<Integer> list = new Vector<Integer>();
+		for (int i = 0; i < citiesId.length; i++) {
+			list.add(Integer.parseInt(citiesId[i]));
+		}
+		CitiesEntity citiesEntity = cityService.findByIds(list);
 		if (citiesEntity == null || citiesEntity.getItems()==null || citiesEntity.getItems().isEmpty()) {
 			log.error("No cities found");
 			return ResponseEntity.noContent().build();

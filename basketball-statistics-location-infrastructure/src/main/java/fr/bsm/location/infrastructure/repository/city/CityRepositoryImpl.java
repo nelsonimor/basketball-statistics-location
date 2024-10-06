@@ -1,6 +1,7 @@
 package fr.bsm.location.infrastructure.repository.city;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -39,6 +40,11 @@ public class CityRepositoryImpl implements CityRepository {
 	private Optional<CountryData> getCountry(Integer countryId) {
 		Optional<CountryData> countryData = countryJpaRepository.findById(countryId);
 		return countryData;
+	}
+	
+	@Override
+	public CitiesEntity findByNames(List<String> cityNames) {
+		return CitiesEntity.builder().items(cityJpaRepository.findByNameIn(cityNames).stream().map(cityEntityMapper::dataToEntity).collect(Collectors.toList())).build();
 	}
 
 
@@ -96,6 +102,13 @@ public class CityRepositoryImpl implements CityRepository {
 	public void delete(Integer id) {
 		cityJpaRepository.deleteById(id);
 	}
+
+	@Override
+	public CitiesEntity findByIds(List<Integer> list) {
+		return CitiesEntity.builder().items(cityJpaRepository.findByIdIn(list).stream().map(cityEntityMapper::dataToEntity).collect(Collectors.toList())).build();
+	}
+
+
 
 
 

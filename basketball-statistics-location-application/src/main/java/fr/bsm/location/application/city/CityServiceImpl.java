@@ -1,5 +1,6 @@
 package fr.bsm.location.application.city;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -29,6 +30,11 @@ public class CityServiceImpl implements CityService {
 	@Override
 	public CitiesEntity findAll(Optional<Integer> countryId,Optional<String> cityName) {
 		return cityRepository.findAll(countryId,cityName);
+	}
+	
+	@Override
+	public CitiesEntity findByNames(List<String> cityNames) {
+		return cityRepository.findByNames(cityNames);
 	}
 
 	@Override
@@ -70,5 +76,12 @@ public class CityServiceImpl implements CityService {
 	public void delete(Integer id) {
 		cityRepository.delete(id);
 	}
+
+	@Override
+	public CitiesEntity findByIds(List<Integer> list) {
+		return cityRepository.findByIds(list);
+	}
+
+
 
 }
